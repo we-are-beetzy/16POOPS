@@ -9,6 +9,7 @@ A simple yet powerful web application to help ease restaurant management. Allows
 
 # Changelog
 
+* v0.00075 Web Interface Alpha
 * v0.00002 GitHub deployed.
 
 # Authors
