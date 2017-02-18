@@ -26,14 +26,14 @@
 	  <div class="collapse navbar-collapse" id="navbarNavDropdown">
 		<ul class="navbar-nav">
 			<li class="nav item">
-				<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="#">Home <span class="sr-only"></span></a>
 			</li>
 			<li class="nav item">
-				<a class="nav-link active" href="#">Create Account <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="#">Create Account <span class="sr-only"></span></a>
 			</li>
 
 			<li class="nav item">
-				<a class="nav-link" href="#">Edit Account <span class="sr-only"></span></a>
+				<a class="nav-link active" href="#">Edit Account <span class="sr-only">(current)</span></a>
 			</li>
 			
 			<li class="nav item">
@@ -50,7 +50,8 @@
 			<li class="nav-item">
 				<a class="nav-link waves-effect waves-light"><i class="fa fa-power-off"></i> Logout</a>
 			</li>
-		</ul>
+		</ul>		
+		
 	  </div>
 	</nav>
 
@@ -61,13 +62,25 @@
 
         <!--Header-->
         <div class="text-xs-center">
-            <h3><i class="fa fa-user"></i> Create New Account</h3>
+            <h3><i class="fa fa-user"></i> Edit Account:</h3>
             <hr class="mt-2 mb-2">
         </div>
-            
-        <!--Body-->
-        <form>
 
+        <!--Body-->
+		
+	<div class="btn-group">
+		<button class="btn amber accent-2 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Existing User</button>
+
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="#">HostName1</a>
+				<a class="dropdown-item" href="#">HostName2</a>
+				<a class="dropdown-item" href="#">WaiterName1</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="#">Create Account</a>
+			</div>
+		</div>
+			
+        <form>
 			<div class="row">
 				<div class="col-md-6">
 					<div class="md-form">
@@ -89,26 +102,37 @@
         
         <div class="md-form">
             <i class="fa fa-envelope prefix"></i>
-            <input type="email" id="form2" class="form-control validate">
-            <label for="form2" data-error="Invalid" data-success="">E-mail</label>
+            <input type="text" id="form2" class="form-control">
+            <label for="form2">E-mail</label>
         </div>
+		
+        <div class="text-xs-center">
+            <h1><p style="font-size:50%"><b> User Type:</b></p></h1>     
+        </div>
+		
+		<fieldset class="form-group">
+			<input name="group1" type="radio" id="radio1">
+			<label for="radio1">Customer</label>
+		</fieldset>
 
-        <div class="md-form">
-            <i class="fa fa-lock prefix"></i>
-            <input type="password" id="form4" class="form-control">
-            <label for="form4">Password</label>
-        </div>
+		<fieldset class="form-group">
+			<input name="group1" type="radio" id="radio2">
+			<label for="radio2">Host</label>
+		</fieldset>
 
-        <div class="md-form">
-            <i class="fa prefix"></i>
-            <input type="password" id="form4" class="form-control">
-            <label for="form4">Confirm Password</label>
-        </div>
-        
+		<fieldset class="form-group">
+			<input name="group1" type="radio" id="radio3">
+			<label for="radio3">Server</label>
+		</fieldset>
+		
+		<fieldset class="form-group">
+			<input name="group1" type="radio" id="radio3">
+			<label for="radio3">Kitchen Staff</label>
+		</fieldset>
+   
         <div class="text-center">
-
-            <button class="btn amber accent-2">Create Account</button>
-
+            <button class="btn amber accent-2">Save</button>
+			<button class="btn amber accent-2">Cancel</button>
         </div>
 
     </div>
