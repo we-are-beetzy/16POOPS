@@ -45,6 +45,13 @@
 			</li>
 		
 		</ul>
+		
+		<ul class="navbar-nav ml-auto nav-flex-icons nav-flex-icons">
+			<li class="nav-item">
+				<a class="nav-link waves-effect waves-light"><i class="fa fa-power-off"></i> Logout</a>
+			</li>
+		</ul>		
+		
 	  </div>
 	</nav>
 
@@ -73,17 +80,25 @@
 			</div>
 		</div>
 			
-        <div class="md-form">
-            <i class="fa prefix"></i>
-            <input type="text" id="form2" class="form-control">
-            <label for="form2">First Name</label>
-        </div>
-        
-        <div class="md-form">
-            <i class="fa prefix"></i>
-            <input type="text" id="form2" class="form-control">
-            <label for="form2">Last Name</label>
-        </div>
+        <form>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="md-form">
+						<i class="fa prefix"></i>
+						<input type="text" id="form2" class="form-control validate">
+						<label for="form2">First Name</label>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="md-form">
+						<i class="fa prefix"></i>
+						<input type="text" id="form2" class="form-control validate">
+						<label for="form2">Last Name</label>
+					</div>
+				</div>
+			</div>
+        </form>
         
         <div class="md-form">
             <i class="fa fa-envelope prefix"></i>
@@ -115,7 +130,7 @@
 			<label for="radio3">Kitchen Staff</label>
 		</fieldset>
    
-        <div class="text-xs-center">
+        <div class="text-center">
             <button class="btn amber accent-2">Save</button>
 			<button class="btn amber accent-2">Cancel</button>
         </div>
