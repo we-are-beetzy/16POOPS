@@ -54,7 +54,6 @@
 	  </div>
 	</nav>
 
-
 <!--Form without header-->
 <div class="container top-buffer">
 <div class="card">
@@ -62,12 +61,13 @@
 
         <!--Header-->
         <div class="text-xs-center">
-            <h3><i class="fa fa-user"></i> Create New Account:</h3>
+            <h3><i class="fa fa-user"></i> Create New Account</h3>
             <hr class="mt-2 mb-2">
         </div>
-
+            
         <!--Body-->
         <form>
+
 			<div class="row">
 				<div class="col-md-6">
 					<div class="md-form">
@@ -89,8 +89,8 @@
         
         <div class="md-form">
             <i class="fa fa-envelope prefix"></i>
-            <input type="text" id="form2" class="form-control">
-            <label for="form2">E-mail</label>
+            <input type="email" id="form2" class="form-control validate">
+            <label for="form2" data-error="Invalid" data-success="">E-mail</label>
         </div>
 
         <div class="md-form">
@@ -106,7 +106,9 @@
         </div>
         
         <div class="text-center">
+
             <button class="btn amber accent-2">Create Account</button>
+
         </div>
 
     </div>
