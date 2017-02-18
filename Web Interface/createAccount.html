@@ -26,13 +26,20 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link active" href="#">Home <span class="sr-only"></span></a>
+        <a class="nav-link" href="./index.html">Home <span class="sr-only"></span></a>
       </li>
-    <li class="nav item">
-        <a class="nav-link" href="#">Create Account <span class="sr-only">(current)</span></a>
-    </li>
-        
+    <li class="nav item active">
+        <a class="nav-link" href="./createAccount.html">Create Account <span class="sr-only">(current)</span></a>
+    </li>        
     </ul>
+    
+      <ul class="navbar-nav ml-auto nav-flex-icons nav-flex-icons">
+          <li class="nav-item">
+            <a class="nav-link waves-effect waves-light"><i class="fa fa-power-off"></i> Logout</a>
+          </li>
+      </ul>
+      
+
   </div>
 </nav>
 
@@ -43,27 +50,35 @@
 
         <!--Header-->
         <div class="text-xs-center">
-            <h3><i class="fa fa-user"></i> Create New Account:</h3>
+            <h3><i class="fa fa-user"></i> Create New Account</h3>
             <hr class="mt-2 mb-2">
         </div>
-
+            
         <!--Body-->
+        <form>
+        <div class="row">
+            <div class="col-md-6">
         <div class="md-form">
             <i class="fa prefix"></i>
-            <input type="text" id="form2" class="form-control">
+            <input type="text" id="form2" class="form-control validate">
             <label for="form2">First Name</label>
         </div>
-        
+        </div>
+
+        <div class="col-md-6">
         <div class="md-form">
             <i class="fa prefix"></i>
-            <input type="text" id="form2" class="form-control">
+            <input type="text" id="form2" class="form-control validate">
             <label for="form2">Last Name</label>
+                </div>
         </div>
-        
+        </div>
+        </form>
+
         <div class="md-form">
             <i class="fa fa-envelope prefix"></i>
-            <input type="text" id="form2" class="form-control">
-            <label for="form2">E-mail</label>
+            <input type="email" id="form2" class="form-control validate">
+            <label for="form2" data-error="Invalid" data-success="">E-mail</label>
         </div>
 
         <div class="md-form">
@@ -78,8 +93,8 @@
             <label for="form4">Confirm Password</label>
         </div>
         
-        <div class="text-xs-center">
-            <button class="btn amber accent-2">Login</button>
+        <div class="text-center">
+            <button class="btn UCFgold accent-2 btn-block">Create Account</button>
         </div>
 
     </div>
