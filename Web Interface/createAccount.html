@@ -18,7 +18,7 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-toggleable-md navbar-light amber accent-2 bg-faded">
+	<nav class="navbar navbar-toggleable-md navbar-light UCFgold accent-2 bg-faded">
 	  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	  </button>
@@ -72,7 +72,7 @@
 				<div class="col-md-6">
 					<div class="md-form">
 						<i class="fa prefix"></i>
-						<input type="text" id="form2" class="form-control validate">
+						<input type="text" id="firstName" class="form-control validate">
 						<label for="form2">First Name</label>
 					</div>
 				</div>
@@ -80,7 +80,7 @@
 				<div class="col-md-6">
 					<div class="md-form">
 						<i class="fa prefix"></i>
-						<input type="text" id="form2" class="form-control validate">
+						<input type="text" id="lastName" class="form-control validate">
 						<label for="form2">Last Name</label>
 					</div>
 				</div>
@@ -89,25 +89,25 @@
         
         <div class="md-form">
             <i class="fa fa-envelope prefix"></i>
-            <input type="email" id="form2" class="form-control validate">
+            <input type="email" id="email" class="form-control validate">
             <label for="form2" data-error="Invalid" data-success="">E-mail</label>
         </div>
 
         <div class="md-form">
             <i class="fa fa-lock prefix"></i>
-            <input type="password" id="form4" class="form-control">
+            <input type="password" id="password" class="form-control">
             <label for="form4">Password</label>
         </div>
 
         <div class="md-form">
             <i class="fa prefix"></i>
-            <input type="password" id="form4" class="form-control">
+            <input type="password" id="confirmPassword" class="form-control">
             <label for="form4">Confirm Password</label>
         </div>
         
         <div class="text-center">
 
-            <button class="btn amber accent-2">Create Account</button>
+            <button class="btn UCFgold accent-2" onclick="handleSignUp();">Create Account</button>
 
         </div>
 
@@ -119,6 +119,20 @@
     
     <!-- /Start your project here-->
     
+    <!-- Import Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyD2rkT1bru0R6Udda0nXfhirFWvSbq8n3A",
+        authDomain: "helps-kitchen-alpha.firebaseapp.com",
+        databaseURL: "https://helps-kitchen-alpha.firebaseio.com",
+        storageBucket: "helps-kitchen-alpha.appspot.com",
+        messagingSenderId: "1078102454253"
+      };
+      firebase.initializeApp(config);
+    </script>
+    
     <!-- SCRIPTS -->
     <!-- JQuery -->
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
@@ -128,6 +142,8 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- Login form handling JavaScript -->
+    <script type="text/javascript" src="js/authenticateUser.js"></script>
 </body>
 
 </html>

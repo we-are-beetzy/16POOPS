@@ -19,7 +19,7 @@
 
 <body>
 
-	<nav class="navbar navbar-toggleable-md navbar-light amber accent-2 bg-faded">
+	<nav class="navbar navbar-toggleable-md navbar-light UCFgold accent-2 bg-faded">
 	  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	  </button>
@@ -27,9 +27,7 @@
 	  <div class="collapse navbar-collapse" id="navbarNavDropdown">
 		<ul class="navbar-nav">
 		  <li class="nav-item">
-
 			<a class="nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-
 		  </li>
 		<li class="nav item">
 			<a class="nav-link" href="#">Create Account <span class="sr-only"></span></a>
@@ -67,18 +65,18 @@
         <!--Body-->
         <div class="md-form">
             <i class="fa fa-envelope prefix"></i>
-            <input type="email" id="form2" class="form-control validate">
+            <input type="email" id="email" name="email" class="form-control validate">
             <label for="form2" data-error="invalid">Your email</label>
         </div>
 
         <div class="md-form">
             <i class="fa fa-lock prefix"></i>
-            <input type="password" id="form4" class="form-control">
+            <input type="password" id="password" name="password" class="form-control">
             <label for="form4">Your password</label>
         </div>
 
         <div class="text-xs-center">
-            <button class="btn UCFgold accent-2">Login</button>
+            <button class="btn UCFgold accent-2" onclick="toggleSignIn();">Login</button>
         </div>
 
     </div>
@@ -97,6 +95,20 @@
     
     <!-- /Start your project here-->
     
+    <!-- Import Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyD2rkT1bru0R6Udda0nXfhirFWvSbq8n3A",
+        authDomain: "helps-kitchen-alpha.firebaseapp.com",
+        databaseURL: "https://helps-kitchen-alpha.firebaseio.com",
+        storageBucket: "helps-kitchen-alpha.appspot.com",
+        messagingSenderId: "1078102454253"
+      };
+      firebase.initializeApp(config);
+    </script>
+    
     <!-- SCRIPTS -->
     <!-- JQuery -->
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
@@ -106,6 +118,9 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- Login form handling JavaScript -->
+    <script type="text/javascript" src="js/authenticateUser.js"></script>
+    
 </body>
 
 </html>
