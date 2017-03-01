@@ -48,11 +48,24 @@ function toggleSignIn() {
 
 // Creates a new account within the 'Create Account' form.
 function handleSignUp() {
+	var firstName = document.getElementById('firstName').value;
+	var lastName = document.getElementById('lastName').value;
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
     var confirmPassword = document.getElementById('confirmPassword').value;
     
-    // Ensure the username and password fields are not empty.
+	
+    // Ensure the name, username and password fields are not empty.
+	if(firstName.length == 0){
+		alert('Please enter a first name.');
+		return;
+	}
+	
+	if(lastName.length == 0){
+		alert('Please enter a last name.');
+		return;
+	}	
+	
     if (email.length < 2){
         alert('Please enter an e-mail address.');
         return;

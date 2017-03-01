@@ -15,6 +15,8 @@
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
 
+	<script language="javascript" src="js/createReservation.js"></script>
+	
 </head>
 
 <body>
@@ -54,12 +56,9 @@
 	  </div>
 	</nav>
 
-
-
 	<!--Form without header-->
 	<div class="container-fluid top-buffer">
-	
-	
+
 	
 		<li>
 			<div class="card col-md-12">
@@ -70,51 +69,53 @@
 						<hr class="mt-2 mb-2">
 					</div>
 	
-					<form>
+					<form name="createReservation">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="md-form">
 									<i class="fa prefix"></i>
-									<input type="text" id="form2" class="form-control validate">
-									<label for="form2">Party Name</label>
+									<input type="text" id="partyName" class="form-control validate">
+									<label for="partyName">Party Name</label>
 								</div>
 							</div>
 
 							<div class="col-md-2">
 								<div class="md-form">
 									<i class="fa prefix"></i>
-									<input type="text" id="form2" class="form-control validate">
-									<label for="form2">Number in Party</label>
+									<input type="text" id="partyNumber" class="form-control validate">
+									<label for="partyNumber">Number in Party</label>
 								</div>
 							</div>
 						</div>
-					</form>
 					
-					<form><!--- Use http://www.malot.fr/bootstrap-datetimepicker/ --->
+					
+					<!--- Use http://www.malot.fr/bootstrap-datetimepicker/ --->
 						<div class="row">
 							<div class="col-md-4">
 								<div class="md-form">
-									<i class="fa prefix"></i>
-									<input type="text" id="form2" class="form-control validate">
-									<label for="form2">Date</label>
+									<i class="fa  fa-calendar prefix"></i>
+									<input type="date" id="date" class="form-control validate">
 								</div>
 							</div>
 
 							<div class="col-md-2">
 								<div class="md-form">
-									<i class="fa prefix"></i>
-									<input type="text" id="form2" class="form-control validate">
-									<label for="form2">Time</label>
+									<i class="fa fa-clock-o prefix"></i>
+									<input type="time" id="time" class="form-control validate">
 								</div>
 							</div>
 						</div>
+						
+						<div class="text-center">
+
+							<button type="submit" class="btn amber accent-2" onclick="confirmReservation()">Create Reservation</button>
+	
+
+						</div>
+						
 					</form>
 					
-					<div class="text-center">
 
-						<button class="btn amber accent-2">Create Reservation</button>
-
-					</div>
 				</div>
 
 
@@ -123,14 +124,14 @@
 		
 		<div class="modal-footer">
 			<div class="options">
-				<p><a href="manageReservations.html">Return to Reservations</a></p>
+				<p><a href="manageReservations.html" onclick="loseInformation()">Return to Reservations</a></p>
 			</div>
 		</div>
 		
 		
 	</div>
 	
-
+	
 
 <!--/Form without header-->
 
