@@ -15,8 +15,6 @@
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
 
-	<script language="javascript" src="js/createReservation.js"></script>
-	
 </head>
 
 <body>
@@ -131,6 +129,8 @@
 		
 	</div>
 	
+
+	
 	
 
 <!--/Form without header-->
@@ -139,6 +139,21 @@
     <!-- /Start your project here-->
     
     <!-- SCRIPTS -->
+	<!-- FireBase -->	
+	<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+		apiKey: "AIzaSyDi2GWVDO0DWvmRmI1FX_2CtHVPij_jduI",
+		authDomain: "helps-kitchen-test-database.firebaseapp.com",
+		databaseURL: "https://helps-kitchen-test-database.firebaseio.com",
+		storageBucket: "helps-kitchen-test-database.appspot.com",
+		messagingSenderId: "861591535890"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+	<!-- JavaScript -->
+	<script language="javascript" src="js/createReservation.js"></script>
     <!-- JQuery -->
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <!-- Bootstrap tooltips -->
