@@ -1,0 +1,22 @@
+var ref = firebase.database().ref('ReservationQueue');
+function loadReservations(){
+ref.once("value")
+  .then(function(snapshot) {
+	
+    var reservation = snapshot.child("ReservationQueue/Bates").key;
+    var numinParty = snapshot.child(reservation + "/Party").val(); 
+    var timeOfRes = snapshot.child(reservation + "/Time").val(); 
+    var dateOfRes = snapshot.child(reservation + "/Date").val(); 
+	
+	var table = document.getElementById("resTable");
+  var row = table.insertRow(1);
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  var cell3 = row.insertCell(2);
+  
+  cell1.innerHTML = reservation;
+  cell2.innerHTML = numinParty;
+  cell3.innerHTML = timeOfRes;
+ 
+  });
+  }
