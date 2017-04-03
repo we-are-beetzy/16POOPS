@@ -70,13 +70,14 @@
 		
 	<div class="btn-group">
 		<button class="btn UCFgold accent-2 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Existing User</button>
-
-			<div class="dropdown-menu">
-				<a class="dropdown-item" href="#">HostName1</a>
-				<a class="dropdown-item" href="#">HostName2</a>
-				<a class="dropdown-item" href="#">WaiterName1</a>
+            
+            <div class="dropdown-menu" id="accountDropdown">
+                <script>
+                    addToDropdown();
+                </script>
+                <a class="dropdown-item" >Carlos</a>
 				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="#">Create Account</a>
+				<a class="dropdown-item" href="createAccount.html">Create Account</a>
 			</div>
 		</div>
 			
@@ -158,6 +159,20 @@
         </script>
 
     <!-- SCRIPTS -->
+    <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyD5D23YKyps_69HcPj1Ir7SnaP5I2ondT0",
+        authDomain: "test-c1f82.firebaseapp.com",
+        databaseURL: "https://test-c1f82.firebaseio.com",
+        storageBucket: "test-c1f82.appspot.com",
+        messagingSenderId: "92078539964"
+      };
+      firebase.initializeApp(config);
+    </script>
+	<!-- JavaScript -->
+	<script language="javascript" src="js/editAccount.js"></script>
     <!-- JQuery -->
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <!-- Bootstrap tooltips -->
