@@ -1,6 +1,6 @@
 // Get references to the database service and Menu
 var ref = firebase.database().ref();
-var resRef = ref.child('Menu');
+var menuRef = ref.child('Menu');
 
 // Checks that all of the fields have a value
 function validateForm(name, price) {
@@ -28,7 +28,7 @@ function confirmMenuItem(){
 	var	price = document.forms["createMenuItem"]["price"].value;
     
 	if(confirm('Is the information correct?') && validateForm(name, price)){
-		window.location.href = "manageReservations.html";
+		window.location.href = "menu.html";
 		createMenuItem(name, price);
 	}
 	else{
@@ -39,7 +39,7 @@ function confirmMenuItem(){
 // if "Return to Menu" is clicked, alert will pop up,
 // cancel should keep form data and stay on page
 function loseInformation(){
-	if(name.length > 0 || number.length > 0){
+	if(name.length > 0 || price.length > 0){
 		if(confirm('Are you sure? You will lose all of your data')){
 			window.location.href = "menu.html";
 		}
@@ -53,10 +53,9 @@ function loseInformation(){
 // Pushes data from form fields to firebase database in Menu directory
 function createMenuItem(name, price){
 	//standard menu children
-    
-    window.console.log(dateInt);
-
 	var menu = {name: name, price: price};
 	
-    ref.child('Menu/').set(menu);	
+	var mName = name;
+	
+    menuRef.child('Menu/' + mName).set(menu);	
 }
