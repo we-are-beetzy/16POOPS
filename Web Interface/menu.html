@@ -79,14 +79,10 @@
 					<!--Body-->
 					<!---Use JavaScript to select from table then use buttons at bottom
 							to either edit or delete--->
-					<table class="table">
+					<table class="table" id = "menuM">
 						<tr>
 							<th>Name:</th>
 							<th>Price:</th>
-						</tr>
-						<tr>
-							<td>Apple Pie</td>
-							<td>5.99</td>
 						</tr>
 					</table>
 	
@@ -114,6 +110,7 @@
     <!-- SCRIPTS -->
 	<!-- Firebase -->
 	<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
 	<script>
 	  // Initialize Firebase
 	  var config = {
@@ -125,6 +122,8 @@
 	  };
 	  firebase.initializeApp(config);
 	</script>
+	<!-- JavaScript -->
+	<script language="javascript" src="js/menu.js"></script>
     <!-- JQuery -->
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <!-- Bootstrap tooltips -->
