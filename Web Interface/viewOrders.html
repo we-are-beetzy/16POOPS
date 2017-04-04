@@ -17,7 +17,7 @@
 
 </head>
 
-<body>
+<body onload="loadOrders();">
 
 	<nav class="navbar navbar-toggleable-md navbar-light amber accent-2 bg-faded">
 	  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,36 +83,22 @@
 					<!--Body-->
 					<!---Use JavaScript to select from table then use buttons at bottom
 							to either edit or delete--->
-					<table class="table">
+					<table class="table" id="orderTable">
 						<tr>
 							<th>Table No.</th>
 							<th>Items</th>
 							<th>Status</th>
 						</tr>
-						<tr>
-							<td>2</td>
-							<td>food</td>
-							<td>See Kitchen</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>food</td>
-							<td>Ready</td>
-						</tr>
-						<tr>
-							<td>7</td>
-							<td>food</td>
-							<td>Placed</td>
-						</tr>
 					</table>
-	
-					<div class="text-xs">
-						<a href="createOrder.html">
-							<button class="btn UCFgold accent-2">Create</button>						
-						</a>
-						<button class="btn UCFgold accent-2">Edit</button>
-						<button class="btn UCFgold accent-2">Delete</button>
-					</div>
+	               
+                    <div class="row justify-content-md-center">
+                        <div class="text-xs">
+                            <a href="createOrder.html">
+                                <button class="btn UCFgold accent-2" href="createOrder.html">Create</button>						
+                            </a>
+                            <button class="btn UCFgold accent-2" onclick="editOrder()">Edit</button>
+                        </div>
+                    </div>
 					
 				</div>
 
@@ -128,7 +114,7 @@
     
     <!-- /Start your project here-->
     
-    <!-- SCRIPTS -->
+
 	<!-- Firebase -->
 	<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
 	<script>
@@ -142,6 +128,8 @@
 	  };
 	  firebase.initializeApp(config);
 	</script>
+    <!-- SCRIPTS -->
+    <script type="text/javascript" src="js/viewOrders.js"></script>
     <!-- JQuery -->
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <!-- Bootstrap tooltips -->
