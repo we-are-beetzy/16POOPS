@@ -1,8 +1,7 @@
 function loadReservations(){
 
-var query = firebase.database().ref('Reservations').orderByChild("resDate");
-query.once("value")
-  .then(function(snapshot) {
+var query = firebase.database().ref('Reservations').orderByChild("dateTime");
+query.once("value").then(function(snapshot) {
 	snapshot.forEach(function(childSnapshot){
 	var reservation = childSnapshot.key;
 	var childData = childSnapshot.val();
@@ -24,11 +23,16 @@ query.once("value")
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
 	var cell4 = row.insertCell(3);
+	var str = data.dateTime
+	var date = new Date(str);
+	date = date.toString();
+	dayOfRes = date.substring(0, 15);
+	timeOfRes = date.substring(16, 21);
 	
-    cell1.innerHTML = data.resDate;
-    cell2.innerHTML = data.partyName;
-    cell3.innerHTML = data.partyNumber;
-	cell4.innerHTML = data.resTime;
+    cell1.innerHTML = dayOfRes;
+    cell2.innerHTML = data.name;
+    cell3.innerHTML = data.partySize;
+	cell4.innerHTML = timeOfRes;
  }
 }
 function refreshPage() {
@@ -117,25 +121,25 @@ function editReservation(){
 		if(partyNumber === null){
 			return;
 		}
-		var n = 1;
+		
 		var query = firebase.database().ref('Reservations');
 		query.once("value")
 			.then(function(snapshot) {
 				snapshot.forEach(function(childSnapshot){
 					var reservation = childSnapshot.key;
 					var childData = childSnapshot.val();
-					n = partyName.localeCompare(childData.partyName);
+					var n = partyName.localeCompare(childData.name);
 					if(n === 0)
 					{
 						firebase.database().ref('Reservations/' + reservation).set({
-						partyName: childData.partyName,
-						partyNumber: partyNumber,
-						resDate: childData.resDate,
-						resTime: childData.resTime						
+						name: childData.name,
+						partySize: partyNumber,
+						dateTime: childData.dateTime					
 						});
 						return true;
 					}		
 			});
+		
 		});	
 	}
 	
