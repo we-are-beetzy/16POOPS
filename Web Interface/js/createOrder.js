@@ -46,8 +46,16 @@ function createReservation(menuItem, tableNumber){
     
     var currentTime = new Date();
 	
-    //resNumber = resRef.child('resCounter').key;
     var orderNumber = currentTime.getTime(); // change to resCounter when you figure it out
-    //resRef.child('resCounter').update( 1);
-    orders.child('OrderList/' + orderNumber).set(newOrder);	
+    orders.child('OrderList/' + orderNumber).set(newOrder);
+    //orders.child('Placed/' + orderNumber).set(orderNumber.toString());	
+    
+    var placed = orders.child('Placed');
+        placed.once("value")
+          .then(function(snapshot) {
+            var newKey = snapshot.numChildren(); 
+            orders.child('Placed/' + newKey).set(orderNumber.toString());
+ 
+  });
+    
 }
