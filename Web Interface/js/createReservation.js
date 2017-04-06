@@ -65,18 +65,19 @@ function loseInformation(){
 	}
 }
 
+// will read data and time inputs and create date object for
+// the reservation time
 function createDateTime(date, time) {
     var year = date.substring(0,4);
     var month = date.substring(5,7);
-    var day = date.substring(8,10);
-    
+    var day = date.substring(8,10);  
     var hours = time.substring(0,2);
     var minutes = time.substring(3,5);
     
+    // using the substrings creates Date object
     var dateTime = new Date(year, month, day, hours, minutes);
     
-    
-    
+    // changes date object to dateTime standard
     var dateInt = dateTime.getTime();
     
     return dateInt;
