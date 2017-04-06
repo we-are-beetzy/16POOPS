@@ -1,6 +1,6 @@
 // Get references to the database service and Menu
-var ref = firebase.database().ref();
-var menuRef = ref.child('Menu');
+var menus = firebase.database().ref().child('Menu');
+var menuRef = menus.child('MenuItems');
 
 // Checks that all of the fields have a value
 function validateForm(name, price) {
@@ -24,10 +24,10 @@ function validateForm(name, price) {
 // if so will check if all fields have values, pushes form inputs to database
 function confirmMenuItem(){
 	
-	var name = document.forms["createMenuItem"]["name"].value;
-	var	price = document.forms["createMenuItem"]["price"].value;
+	var name = document.forms["createMenuItem"]["itemName"].value;
+	var	price = document.forms["createMenuItem"]["itemPrice"].value;
     
-	if(confirm('Is the information correct?') && validateForm(name, price)){
+	if(validateForm(name, price)){
 		window.location.href = "menu.html";
 		createMenuItem(name, price);
 	}
@@ -36,6 +36,17 @@ function confirmMenuItem(){
 		return;
 	}
 }
+
+// Pushes data from form fields to firebase database in Menu directory
+function createMenuItem(itemName, ItemPrice){
+	//standard menu children
+	var newMenuItem = {name: itemName, price: itemPrice};
+	
+	var mName = itemName;
+	
+    menus.child('MenuItems/' + mName).set(newMenuItem);	
+}
+
 // if "Return to Menu" is clicked, alert will pop up,
 // cancel should keep form data and stay on page
 function loseInformation(){
@@ -48,14 +59,4 @@ function loseInformation(){
 		}
 		
 	}
-}
-
-// Pushes data from form fields to firebase database in Menu directory
-function createMenuItem(name, price){
-	//standard menu children
-	var menu = {name: name, price: price};
-	
-	var mName = name;
-	
-    menuRef.child('Menu/' + mName).set(menu);	
 }

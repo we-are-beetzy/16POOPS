@@ -1,25 +1,45 @@
+var menu = firebase.database().ref().child('Menu');
+var menuItems = orders.child('MenuItems');
+
 function loadMenu(){
-
-var query = firebase.database().ref('Menu/MenuItems/').orderByChild("name");
-query.once("value")
-  .then(function(snapshot) {
-	snapshot.forEach(function(childSnapshot){
-	var menu = childSnapshot.key;
-	var childData = childSnapshot.val();
-	addToTable(childData);
-
-  });
- });
-
- function addToTable(data){
-	var table = document.getElementById("menuM");
-    var rowCount = table.rows.length; 
-	var row = table.insertRow(rowCount);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
 	
-    cell1.innerHTML = data.name;
-    cell2.innerHTML = data.price;
- }
+    menuItems.once("value").then(function(snapshot) {
+
+		snapshot.forEach(function(childSnapshot){
+            
+		var name = childSnapshot.key;
+        //var childData = (array)childSnapshot.val();
+        var childData = new Array();
+        var i = 0;  
+            
+        childSnapshot.forEach(function(menuValues){
+            childData.push(menuValues.val());
+                              });
+		});
+	});
+	
+		function addToTable(name, childData){
+        var editButton = '<a class="blue-text" id="'+name+'" onClick="editAction(this.id)"><i class="fa fa-pencil"></i></a>';
+        //editButton.id = orderNumber;
+        //editButton.onClick = editAction(this.id);
+         
+        var deleteButton = '<a class="red-text" id="'+name+'" onClick="deleteAction(this.id)"><i class="fa fa-times">';
+        deleteButton.id = name;
+         
+        var table = document.getElementById("menuTable");
+        var rowCount = table.rows.length; 
+        var row = table.insertRow(rowCount);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+         
+        cell1.innerHTML = name;  // order ID
+        cell2.innerHTML = childData[1]; // Item Name
+        cell3.innerHTML = childData[0]; // Item Price
+        cell5.innerHTML = editButton + " " + deleteButton;
+     }
+    
+	 
+ };
 }
 
