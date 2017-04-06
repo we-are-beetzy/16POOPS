@@ -39,6 +39,13 @@ function loadOrders(){
      });
 
      function addToTable(orderNumber, childData, orderStatus){
+        var editButton = '<a class="blue-text" id="'+orderNumber+'" onClick="editAction(this.id)"><i class="fa fa-pencil"></i></a>';
+        //editButton.id = orderNumber;
+        //editButton.onClick = editAction(this.id);
+         
+        var deleteButton = '<a class="red-text" id="'+orderNumber+'" onClick="deleteAction(this.id)"><i class="fa fa-times">';
+        deleteButton.id = orderNumber;
+         
         var table = document.getElementById("orderTable");
         var rowCount = table.rows.length; 
         var row = table.insertRow(rowCount);
@@ -46,11 +53,14 @@ function loadOrders(){
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
         var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        //var cell6 = row.insertCell(5);
          
         cell1.innerHTML = orderNumber;  // order ID
         cell2.innerHTML = childData[1]; // Table Number
         cell3.innerHTML = childData[0]; // Menu Item
         cell4.innerHTML = orderStatus; //  should be table status
+        cell5.innerHTML = editButton + " " + deleteButton;
      }
     
     function deliveredOrders(orderNumber, childData){
@@ -63,7 +73,7 @@ function loadOrders(){
 
                     //console.log(childSnapshot.key); 
                     //console.log(childSnapshot.val())
-;                    
+                    
                    if(childSnapshot.val() === orderNumber){
                        //console.log("luck");
                        addToTable(orderNumber, childData, "Delivered")   
@@ -86,7 +96,7 @@ function loadOrders(){
 
                     //console.log(childSnapshot.key); 
                     //console.log(childSnapshot.val())
-;                    
+                   
                    if(childSnapshot.val() === orderNumber){
                        //console.log("luck");
                        addToTable(orderNumber, childData, "In Progress")   
@@ -109,7 +119,7 @@ function loadOrders(){
 
                     //console.log(childSnapshot.key); 
                     //console.log(childSnapshot.val())
-;                    
+                  
                    if(childSnapshot.val() === orderNumber){
                        //console.log("luck");
                        addToTable(orderNumber, childData, "Placed")   
@@ -132,7 +142,7 @@ function loadOrders(){
 
                     //console.log(childSnapshot.key); 
                     //console.log(childSnapshot.val())
-;                    
+                   
                    if(childSnapshot.val() === orderNumber){
                        //console.log("luck");
                        addToTable(orderNumber, childData, "Ready")   
@@ -155,7 +165,7 @@ function loadOrders(){
 
                     //console.log(childSnapshot.key); 
                     //console.log(childSnapshot.val())
-;                    
+                    
                    if(childSnapshot.val() === orderNumber){
                        //console.log("luck");
                        addToTable(orderNumber, childData, "See Kitchen")   
@@ -170,108 +180,17 @@ function loadOrders(){
 }
 
 
+function editAction(orderNumber){
+    console.log("edit " + orderNumber);
+    localStorage.setItem("orderNumber", orderNumber);
+    window.location.href = 'editOrder.html';
+}
 
-
-function editOrder(){
-		
-	var tableNumber = prompt("Please enter the table number to update.");
-	if(tableNumber === null){
-		return;
-	}
-	
-	var update = prompt("What would you like to change?\nEnter a value below.\nAdd Item:  1\nRemove Item:  2\nStatus:  3\n");
-	if(update === null){
-		return;
-	}
-	if(update < 1 || update > 3){
-		alert("You must enter 1, 2, or 3!");
-		return;
-	}
-	
-	if(update === '1')
-	{
-		var newItem = prompt("What items would you like to add to the order?\n24 hour time format:    hh:mm");
-		if(resTime === null){
-			return;
-		}
-		
-		var query = firebase.database().ref('Reservations');
-		query.once("value")
-			.then(function(snapshot) {
-				snapshot.forEach(function(childSnapshot){
-					var reservation = childSnapshot.key;
-					var childData = childSnapshot.val();
-					var n = partyName.localeCompare(childData.partyName);
-					if(n === 0)
-					{
-						firebase.database().ref('Reservations/' + reservation).set({
-						partyName: childData.partyName,
-						partyNumber: childData.partyNumber,
-						resDate: childData.resDate,
-						resTime: resTime						
-						});
-						return true;
-					}
-		
-			});
-		});
-
-	}
-	else if(update === '2')
-	{
-		var resDate = prompt("What date would you like to change the reservation to?\nEnter in this format:    yyyy-mm-dd");
-		if(resDate === null){
-			return;
-		}
-		var query = firebase.database().ref('Reservations');
-		query.once("value")
-			.then(function(snapshot) {
-				snapshot.forEach(function(childSnapshot){
-					var reservation = childSnapshot.key;
-					var childData = childSnapshot.val();
-					var n = partyName.localeCompare(childData.partyName);
-					if(n === 0)
-					{
-						firebase.database().ref('Reservations/' + reservation).set({
-						partyName: childData.partyName,
-						partyNumber: childData.partyNumber,
-						resDate: resDate,
-						resTime: childData.resTime						
-						});
-						return true;
-					}
-		
-			});
-		});
-
-	}
-	else if(update === '3')
-	{
-		var partyNumber = prompt("How many will now be in your party?");
-		if(partyNumber === null){
-			return;
-		}
-		var n = 1;
-		var query = firebase.database().ref('Reservations');
-		query.once("value")
-			.then(function(snapshot) {
-				snapshot.forEach(function(childSnapshot){
-					var reservation = childSnapshot.key;
-					var childData = childSnapshot.val();
-					n = partyName.localeCompare(childData.partyName);
-					if(n === 0)
-					{
-						firebase.database().ref('Reservations/' + reservation).set({
-						partyName: childData.partyName,
-						partyNumber: partyNumber,
-						resDate: childData.resDate,
-						resTime: childData.resTime						
-						});
-						return true;
-					}		
-			});
-		});	
-	}
-	
-	delayRefreshPage(2000);
+function deleteAction(orderNumber){
+    if(confirm('Are you sure you wish to delete order ' + orderNumber + '?')){
+        orderList.child(orderNumber).remove();
+        console.log("delete " + orderNumber);
+        location.reload(true);
+    }
+    else{}
 }
