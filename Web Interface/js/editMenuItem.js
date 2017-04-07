@@ -7,11 +7,19 @@ function editMenuItem(){
 	menuItems.once("value")
 		.then(function(snapshot) {
 			
-        //var itemCategory = snapshot.val().tableKey;
+        //var itemCategory = snapshot.val().category;
         var itemName = snapshot.val().name;
 		var itemPrice = snapshot.val().price;
 		
+		fillForm(itemName, itemPrice);
+		
     });
+	
+	function fillForm(itemName, itemPrice){
+        //document.getElementById("menuCategory").value = menuCategory;
+        document.getElementById("itemName").value = itemName;
+        document.getElementById("itemPrice").value = itemPrice;
+    }
 	
 }
 
@@ -39,7 +47,7 @@ function saveChanges(){
 	var itemPrice = document.forms["createMenuItem"]["itemPrice"].value;
     
     
-    var updatedItem = {item: menuItem, tableKey: tableNumber};
+    var updatedItem = {name: itemName, price: itemPrice};
     
 	menus.child('MenuItems/' + itemName).set(updatedItem);
 	
