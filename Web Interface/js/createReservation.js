@@ -88,8 +88,10 @@ function createReservation(name, number, dateInt){
 	//standard reservation children
     
     window.console.log(dateInt);
+    
+    var numParty = parseInt(number);
 
-	var reservation = {name: name, partySize: number, dateTime: dateInt};
+	var reservation = {name: name, partySize: numParty, dateTime: dateInt};
     
     var currentTime = new Date();
 	
