@@ -70,6 +70,9 @@ function loseInformation(){
 function createDateTime(date, time) {
     var year = date.substring(0,4);
     var month = date.substring(5,7);
+	var x = parseInt(month);
+	x = x - 1;
+	month = x.toString();
     var day = date.substring(8,10);  
     var hours = time.substring(0,2);
     var minutes = time.substring(3,5);
@@ -90,6 +93,7 @@ function createReservation(name, number, dateInt){
     window.console.log(dateInt);
     
     var numParty = parseInt(number); // partySize should be 'int' when pushed to firebase
+
 
 	var reservation = {name: name, partySize: numParty, dateTime: dateInt};
     
