@@ -3,6 +3,9 @@ var orderNumber = localStorage.getItem("orderNumber");
 var orders = firebase.database().ref().child('Orders');
 var orderToEdit = orders.child('OrderList/' + orderNumber);
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 function setForm(){
     //document.getElementById("menuItem").value = "Apple Pie";
@@ -172,27 +175,35 @@ function saveChanges(){
     window.location.href = 'viewOrders.html';
 }
 
+function pause(milliseconds) {
+	var firstDate = new Date();
+	while ((new Date()) - firstDate <= milliseconds) { /* Do nothing */ }
+}
+
 function updateStatus(orderStatus, orderNumber){
     
-    /*
-    removeDelivered(orderStatus);
-    removeInProgress(orderStatus);
-    removePlaced(orderStatus);
-    removeReady(orderStatus);
-    removeSeeKitchen(orderStatus);
-    */
+    
+    removeDelivered(orderNumber);
+    removeInProgress(orderNumber);
+    removePlaced(orderNumber);
+    removeReady(orderNumber);
+    removeSeeKitchen(orderNumber);
+    
     
     console.log(orderStatus);
     var newStatus = orders.child(orderStatus);
     
+    
     newStatus.once("value")
-          .then(function(snapshot) {
+        .then(function(snapshot) {
             var newKey = snapshot.numChildren(); 
             orders.child(orderStatus + '/' + newKey).set(orderNumber.toString());
- 
     });
+    
+    // 
+    pause(500);
   
-    function removeDelivered(orderStatus){
+    function removeDelivered(orderNumber){
         var delivered = orders.child('Delivered');
         //var result;
         
@@ -203,7 +214,7 @@ function updateStatus(orderStatus, orderNumber){
                   .then(function(deliveredSnapshot) {
                        deliveredSnapshot.forEach(function(childSnapshot){
 
-                       if(childSnapshot.val() === orderStatus){
+                       if(childSnapshot.val() === orderNumber){
                            //console.log("luck");
                            delivered.child(childSnapshot.key).remove();  
                        }
@@ -214,7 +225,7 @@ function updateStatus(orderStatus, orderNumber){
              });
     } 
     
-    function removeInProgress(orderStatus){
+    function removeInProgress(orderNumber){
         var inProgress = orders.child('InProgress');
         //var result;
         
@@ -225,7 +236,7 @@ function updateStatus(orderStatus, orderNumber){
                   .then(function(inProgressSnapshot) {
                        inProgressSnapshot.forEach(function(childSnapshot){
 
-                       if(childSnapshot.val() === orderStatus){
+                       if(childSnapshot.val() === orderNumber){
                            //console.log("luck");
                            inProgress.child(childSnapshot.key).remove();  
                        }
@@ -236,7 +247,7 @@ function updateStatus(orderStatus, orderNumber){
              });
     } 
     
-    function removePlaced(orderStatus){
+    function removePlaced(orderNumber){
         var placed = orders.child('Placed');
         //var result;
         
@@ -247,7 +258,7 @@ function updateStatus(orderStatus, orderNumber){
                   .then(function(placedSnapshot) {
                        placedSnapshot.forEach(function(childSnapshot){
 
-                       if(childSnapshot.val() === orderStatus){
+                       if(childSnapshot.val() === orderNumber){
                            //console.log("luck");
                            placed.child(childSnapshot.key).remove();  
                        }
@@ -258,7 +269,7 @@ function updateStatus(orderStatus, orderNumber){
              });
     } 
     
-    function removeReady(orderStatus){
+    function removeReady(orderNumber){
         var ready = orders.child('Ready');
         //var result;
         
@@ -270,7 +281,7 @@ function updateStatus(orderStatus, orderNumber){
                            
                         console.log(childSnapshot.val());
 
-                       if(childSnapshot.val() === orderStatus){
+                       if(childSnapshot.val() === orderNumber){
                            console.log("luck");
                            ready.child(childSnapshot.key).remove();  
                        }
@@ -281,7 +292,7 @@ function updateStatus(orderStatus, orderNumber){
              });
     } 
     
-    function removeSeeKitchen(orderStatus){
+    function removeSeeKitchen(orderNumber){
         var seeKitchen = orders.child('SeeKitchen');
         //var result;
         
@@ -292,7 +303,7 @@ function updateStatus(orderStatus, orderNumber){
                   .then(function(seeKitchenSnapshot) {
                        seeKitchenSnapshot.forEach(function(childSnapshot){
 
-                       if(childSnapshot.val() === orderStatus){
+                       if(childSnapshot.val() === orderNumber){
                            //console.log("luck");
                            seeKitchen.child(childSnapshot.key).remove();  
                        }
