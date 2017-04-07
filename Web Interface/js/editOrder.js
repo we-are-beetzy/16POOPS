@@ -21,11 +21,11 @@ function setForm(){
         orders.once("value")
         .then(function(snapshot) {
               snapshot.forEach(function(childSnapshot){
-                  updateDelivered(orderNumber, tableNumber, menuItem);
-                  updateInProgress(orderNumber, tableNumber, menuItem);
-                  updatePlaced(orderNumber, tableNumber, menuItem);
-                  updateReady(orderNumber, tableNumber, menuItem);
-                  updateSeeKitchen(orderNumber, tableNumber, menuItem);
+                  updateStatus(orderNumber, tableNumber, menuItem, "Delivered");
+                  updateStatus(orderNumber, tableNumber, menuItem, "InProgress");
+                  updateStatus(orderNumber, tableNumber, menuItem, "Placed");
+                  updateStatus(orderNumber, tableNumber, menuItem, "Ready");
+                  updateStatus(orderNumber, tableNumber, menuItem, "SeeKitchen");
               });
             });
 
@@ -34,18 +34,18 @@ function setForm(){
     
     // pre-fills the form using the "fillForm" function after finding out
     // if the orderNumber is found under "Delivered"
-    function updateDelivered(orderNumber, tableNumber, menuItem){
+    function updateStatus(orderNumber, tableNumber, menuItem, orderStatus){
     
-        var delivered = orders.child('Delivered'); //reference to "Delivered" directory
+        var updateStatusRef = orders.child(orderStatus); //reference to orderStatus directory
 
         // snapshot of "Delivered" directory, cycles each child of directory using
         // forEach function and fills the form if it contains the orderNumber
-        delivered.once("value")
-              .then(function(deliveredSnapshot) {
-                   deliveredSnapshot.forEach(function(childSnapshot){
+        updateStatusRef.once("value")
+              .then(function(snapshot) {
+                   snapshot.forEach(function(childSnapshot){
                        
                        if(childSnapshot.val() === orderNumber){
-                           fillForm(tableNumber, menuItem, "Delivered");   
+                           fillForm(tableNumber, menuItem, orderStatus);   
                        }
                        else{
 
@@ -191,258 +191,94 @@ function updateStatus(orderStatus, orderNumber){
     
     // go to each Order status directory, and remove the orderNumber
     // wherever it is present
-    removeDelivered(orderNumber);
-    removeInProgress(orderNumber);
-    removePlaced(orderNumber);
-    removeReady(orderNumber);
-    removeSeeKitchen(orderNumber);
+    removeStatus(orderNumber, "Delivered");
+    removeStatus(orderNumber, "InProgress");
+    removeStatus(orderNumber, "Placed");
+    removeStatus(orderNumber, "Ready");
+    removeStatus(orderNumber, "SeeKitchen");
+
+
         
     var newStatus = orders.child(orderStatus); // reference to the new orderStatus directory
         
-    
+    // creates snapshot of the newStatus directory and if it has an empty child at key 0
+    // the orderNumber will be added at key 0, else it will create a new key and place it there
     newStatus.once("value")
         .then(function(snapshot) {
-            var newKey = snapshot.numChildren(); 
+        
+            var newKey = snapshot.numChildren(); // potential new key for the orderNumber at newStatus
             if(snapshot.child(0).val() == ""){
-            orders.child(orderStatus + '/' + 0).set(orderNumber.toString());
+                orders.child(orderStatus + '/' + 0).set(orderNumber.toString());
             }
             else{
-            orders.child(orderStatus + '/' + newKey).set(orderNumber.toString());
+                orders.child(orderStatus + '/' + newKey).set(orderNumber.toString());
             }
     });
     
-    // 
+    // pause for synchronicity
     pause(500);
   
-    function removeDelivered(orderNumber){
-        var delivered = orders.child('Delivered');
-        //var result;
-        
+    // removes the orderNumber if it's present in the orderStatus directory
+    // fixes the array at each orderStatus if necessary, will also leave
+    // an empty string at key 0 if it is the last remaining orderNumber in 
+    // the given orderStatus directory
+    function removeStatus(orderNumber, orderStatus){
+       
+        var newOrderRef = orders.child(orderStatus); //reference for the orderStatus
 
-            delivered.once("value")
-                  .then(function(deliveredSnapshot) {
+            // creates snapshot of the directory for the orderStatus
+            newOrderRef.once("value")
+                  .then(function(snapshot) {
+                
+                        // create array to store any values not removed from orderStatus directory
                         var reorderArray = new Array();
-                        var numChild = deliveredSnapshot.numChildren();
-                        deliveredSnapshot.forEach(function(childSnapshot){
+                        var numChild = snapshot.numChildren(); // number of orders under orderStatus
+                        
+                        // cycles through each child of orderStatus directory
+                        snapshot.forEach(function(childSnapshot){
                             
+                            // push the orderNumber at the current child to reorderArray
                             reorderArray.push(childSnapshot.val());
-                                                      
+                                               
+                            // check if the value of current child is the orderNumber to remove
                            if(childSnapshot.val() === orderNumber){
                                
-                               //console.log("luck");
-                                if(numChild > 1){
-                                    delivered.child(childSnapshot.key).remove();
+                                // check if the orderNumber to remove is the last child under the 
+                               // orderStatus directory
+                               if(numChild > 1){
+                                   // remove orderNumber from orderStatus directory, and remove
+                                   // from reorderArray so it's not added back to orderStatus
+                                    newOrderRef.child(childSnapshot.key).remove();
                                     reorderArray.pop();
                                }
                                else{
-                                    orders.child('Delivered/' + 0).set("");
+                                   // leave an empty string at key 0, clear array
+                                    orders.child(orderStatus +'/' + 0).set("");
                                     reorderArray.pop();
                                }  
                            }
                            else{
-                               //console.log("bad luck");
-                            }
+                                //nothing
+                           }
                   });
-                console.log(reorderArray);
+                
+                // check if any orderNumber was removed from orderStatus, if numChild and
+                // reorderArray.length match
                 if(numChild === reorderArray.length){
                     //nothing
                 }
-                else if(numChild === 1){
+                else if(numChild === 1){ // this is the last remaining child and has already been set as empty string
                     //nothing
                 }
                 else{
-                    delivered.child(numChild - 1).remove();
+                    //remove largest key as it will not be replaced by the reorderArray, avoids duplicates
+                    newOrderRef.child(numChild - 1).remove();
+                    // pushes each value in array to corresponding key at orderStatus
                     for(var i = 0; i<reorderArray.length; i++){
-                        orders.child('Delivered/' + i).set(reorderArray[i]);
+                        orders.child(orderStatus + '/' + i).set(reorderArray[i]);
                     }
                 }
              });
     } 
     
-    function removeInProgress(orderNumber){
-        var inProgress = orders.child('InProgress');
-        //var result;
-        
-        console.log("removeInProgress");
-
-
-            inProgress.once("value")
-                  .then(function(inProgressSnapshot) {
-                        var reorderArray = new Array();
-                        var numChild = inProgressSnapshot.numChildren();
-                        inProgressSnapshot.forEach(function(childSnapshot){
-                            
-                            reorderArray.push(childSnapshot.val());
-                                                      
-                           if(childSnapshot.val() === orderNumber){
-                               
-                               //console.log("luck");
-                                if(numChild > 1){
-                                    inProgress.child(childSnapshot.key).remove();
-                                    reorderArray.pop();
-                               }
-                               else{
-                                    orders.child('InProgress/' + 0).set("");
-                                    reorderArray.pop();
-                               }  
-                           }
-                           else{
-                               //console.log("bad luck");
-                            }
-                  });
-                console.log(reorderArray);
-                if(numChild === reorderArray.length){
-                    //nothing
-                }
-                else if(numChild === 1){
-                    //nothing
-                }
-                else{
-                    inProgress.child(numChild - 1).remove();
-                    for(var i = 0; i<reorderArray.length; i++){
-                        orders.child('InProgress/' + i).set(reorderArray[i]);
-                    }
-                }
-             });
-    }  
-    
-    function removeReady(orderNumber){
-        var ready = orders.child('Ready');
-        //var result;
-        
-        console.log("removeReady");
-
-
-            ready.once("value")
-                  .then(function(readySnapshot) {
-                        var reorderArray = new Array();
-                        var numChild = readySnapshot.numChildren();
-                        readySnapshot.forEach(function(childSnapshot){
-                            
-                            reorderArray.push(childSnapshot.val());
-                                                      
-                           if(childSnapshot.val() === orderNumber){
-                               
-                               //console.log("luck");
-                                if(numChild > 1){
-                                    ready.child(childSnapshot.key).remove();
-                                    reorderArray.pop();
-                               }
-                               else{
-                                    orders.child('Ready/' + 0).set("");
-                                    reorderArray.pop();
-                               }  
-                           }
-                           else{
-                               //console.log("bad luck");
-                            }
-                  });
-                console.log(reorderArray);
-                if(numChild === reorderArray.length){
-                    //nothing
-                }
-                else if(numChild === 1){
-                    //nothing
-                }
-                else{
-                    ready.child(numChild - 1).remove();
-                    for(var i = 0; i<reorderArray.length; i++){
-                        orders.child('Ready/' + i).set(reorderArray[i]);
-                    }
-                }
-             });
-    } 
-    
-    function removePlaced(orderNumber){
-        var placed = orders.child('Placed');
-        //var result;
-        
-        console.log("removePlaced");
-
-
-            placed.once("value")
-                  .then(function(placedSnapshot) {
-                        var reorderArray = new Array();
-                        var numChild = placedSnapshot.numChildren();
-                        placedSnapshot.forEach(function(childSnapshot){
-                            
-                            reorderArray.push(childSnapshot.val());
-                                                      
-                           if(childSnapshot.val() === orderNumber){
-                               
-                               //console.log("luck");
-                                if(numChild > 1){
-                                    placed.child(childSnapshot.key).remove();
-                                    reorderArray.pop();
-                               }
-                               else{
-                                    orders.child('Placed/' + 0).set("");
-                                    reorderArray.pop();
-                               }  
-                           }
-                           else{
-                               //console.log("bad luck");
-                            }
-                  });
-                console.log(reorderArray);
-                if(numChild === reorderArray.length){
-                    //nothing
-                }
-                else if(numChild === 1){
-                    //nothing
-                }
-                else{
-                    placed.child(numChild - 1).remove();
-                    for(var i = 0; i<reorderArray.length; i++){
-                        orders.child('Placed/' + i).set(reorderArray[i]);
-                    }
-                }
-             });
-    } 
-    
-    function removeSeeKitchen(orderNumber){
-        var seeKitchen = orders.child('SeeKitchen');
-        //var result;
-        
-        console.log("removeSeeKitchen");
-
-
-            seeKitchen.once("value")
-                  .then(function(seeKitchenSnapshot) {
-                        var reorderArray = new Array();
-                        var numChild = seeKitchenSnapshot.numChildren();
-                       seeKitchenSnapshot.forEach(function(childSnapshot){
-                            reorderArray.push(childSnapshot.val());
-                           
-                           
-                           if(childSnapshot.val() === orderNumber){
-                               //console.log("luck");
-                                if(numChild > 1){
-                                    seeKitchen.child(childSnapshot.key).remove();
-                                    reorderArray.pop();
-                               }
-                               else{
-                                    orders.child('SeeKitchen/' + 0).set("");
-                                    reorderArray.pop();
-                               }  
-                           }
-                           else{
-                               //console.log("bad luck");
-                            }
-                  });
-                console.log(reorderArray);
-                if(numChild === reorderArray.length){
-                    //nothing
-                }
-                else if(numChild === 1){
-                    //nothing
-                }
-                else{
-                    seeKitchen.child(numChild - 1).remove();
-                    for(var i = 0; i<reorderArray.length; i++){
-                        orders.child('SeeKitchen/' + i).set(reorderArray[i]);
-                    }
-                }
-             });
-    }
 }
