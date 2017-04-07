@@ -1,3 +1,6 @@
+var reservationList = firebase.database().ref(); // references to firebase
+var resList = reservationList.child('Reservations');
+
 function loadReservations(){
 
 var query = firebase.database().ref('Reservations').orderByChild("dateTime");
@@ -16,6 +19,10 @@ query.once("value").then(function(snapshot) {
  });
 
  function addToTable(data){
+	 
+	var editButton = '<a class="blue-text" id="'+data.name+'" onClick="editAction(this.id)"><i class="fa fa-pencil"></i></a>';
+    var deleteButton = '<a class="red-text" id="'+data.name+'" onClick="deleteReservation(this.id)"><i class="fa fa-times">';
+	
 	var table = document.getElementById("resTable");
     var rowCount = table.rows.length; 
 	var row = table.insertRow(rowCount);
@@ -23,6 +30,7 @@ query.once("value").then(function(snapshot) {
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
 	var cell4 = row.insertCell(3);
+	var cell5 = row.insertCell(4);
 	var str = data.dateTime
 	var date = new Date(str);
 	date = date.toString();
@@ -33,8 +41,26 @@ query.once("value").then(function(snapshot) {
     cell2.innerHTML = data.name;
     cell3.innerHTML = data.partySize;
 	cell4.innerHTML = timeOfRes;
+	cell5.innerHTML = editButton + " " + deleteButton;
  }
 }
+
+function editAction(resName){
+    console.log("resName " + resName);
+    
+    // saves the orderNumber to localStorage for retrieval in "editOrder.html"
+    localStorage.setItem("resName", resName);
+    window.location.href = 'editReservation.html'; // navigate to "editOrder.html"
+}
+/*
+function editAction(orderNumber){
+    console.log("edit " + orderNumber);
+    
+    // saves the orderNumber to localStorage for retrieval in "editOrder.html"
+    localStorage.setItem("orderNumber", orderNumber);
+    window.location.href = 'editOrder.html'; // navigate to "editOrder.html"
+}
+
 function refreshPage() {
     //ensure reloading from server instead of cache
     location.reload(true);
@@ -145,35 +171,27 @@ function editReservation(){
 	
 	delayRefreshPage(2000);
 }
-
-function deleteReservation(){
+*/
+function deleteReservation(resName){
 	
-	var partyName = prompt("Enter the party name you wish to cancel.");
-	if(partyName === null){
-		return;
-	}
-	var query = firebase.database().ref('Reservations');
+	if(confirm('Are you sure you wish to delete the reservation for ' + resName + '?')){
+		var query = firebase.database().ref('Reservations');
 		query.once("value")
 			.then(function(snapshot) {
 				snapshot.forEach(function(childSnapshot){
 					var reservation = childSnapshot.key;
 					var childData = childSnapshot.val();
-					var n = partyName.localeCompare(childData.partyName);
+					var n = resName.localeCompare(childData.name);
 					if(n === 0)
 					{
-						var ok = confirm("Are you sure you wish to delete this reservation?");
-						if(ok === true){
-							firebase.database().ref('Reservations/' + reservation).remove();
-							return true;
-						}
-						else{
-							return;
-						}
+						
+						firebase.database().ref('Reservations/' + reservation).remove();
+						location.reload(true);
 					}
 					
 			});
 		});
 		
-		delayRefreshPage(2000);
+	}
 }
 
