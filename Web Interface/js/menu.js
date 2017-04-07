@@ -1,5 +1,5 @@
 var menu = firebase.database().ref().child('Menu');
-var menuItems = orders.child('MenuItems');
+var menuItems = menu.child('MenuItems');
 
 function loadMenu(){
 	
@@ -15,6 +15,9 @@ function loadMenu(){
         childSnapshot.forEach(function(menuValues){
             childData.push(menuValues.val());
                               });
+            
+        console.log(childData[0]);    
+        addToTable(name, childData); 
 		});
 	});
 	
@@ -32,14 +35,12 @@ function loadMenu(){
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
-         
-        cell1.innerHTML = name;  // order ID
+            
+        cell1.innerHTML = childData[0];  // order ID
         cell2.innerHTML = childData[1]; // Item Name
-        cell3.innerHTML = childData[0]; // Item Price
-        cell5.innerHTML = editButton + " " + deleteButton;
+        cell3.innerHTML = editButton + " " + deleteButton;
      }
     
 	 
  };
-}
 
