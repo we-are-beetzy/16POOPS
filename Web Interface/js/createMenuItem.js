@@ -50,7 +50,7 @@ function createMenuItem(itemName, itemPrice){
 function loseInformation(){
 	if(name.length > 0 || number.length > 0){
 		if(confirm('Are you sure? You will lose all of your data')){
-			window.location.href = "manageReservations.html";
+			window.location.href = "menu.html";
 		}
 		else{
 			return;
