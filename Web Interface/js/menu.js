@@ -32,15 +32,33 @@ function loadMenu(){
         var table = document.getElementById("menuTable");
         var rowCount = table.rows.length; 
         var row = table.insertRow(rowCount);
-        var cell1 = row.insertCell(0);
+		var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
             
-        cell1.innerHTML = childData[0];  // order ID
-        cell2.innerHTML = childData[1]; // Item Name
-        cell3.innerHTML = editButton + " " + deleteButton;
+        cell2.innerHTML = childData[0];  // Item Name
+        cell3.innerHTML = childData[1]; // Item Price
+        cell4.innerHTML = editButton + " " + deleteButton;
      }
     
 	 
- };
+ }
+ 
+ function editAction(itemName){
+    console.log("edit " + itemName);
+    localStorage.setItem("Item: ", itemName);
+    window.location.href = 'editMenuItem.html';
+}
+
+function deleteAction(itemName){
+    if(confirm('Are you sure you wish to delete item ' + itemName + '?')){
+        menuItems.child(itemName).remove();
+        console.log("delete " + itemName);
+        location.reload(true);
+    }
+    else{
+		
+	}
+}
 

@@ -3,14 +3,15 @@ var menus = firebase.database().ref().child('Menu');
 var menuItems = menus.child('MenuItems');
 
 function makeMenuItem(){
+	var itemCategory = document.forms["createMenuItem"]["menuCategory"].value;
     var itemName = document.forms["createMenuItem"]["itemName"].value;
 	var itemPrice = document.forms["createMenuItem"]["itemPrice"].value;
     
     if(validateForm(itemName, itemPrice) === true){
         
-        console.log(itemName + " " + itemPrice)
+        console.log(itemCategory + " " + itemName + " " + itemPrice);
         
-        createMenuItem(itemName, itemPrice);
+        createMenuItem(itemCategory, itemName, itemPrice);
         
         //ensure reloading from server instead of cache
         location.reload(true);
@@ -36,10 +37,26 @@ function validateForm(itemName, itemPrice) {
 }
        
 // Pushes data from form fields to firebase database in Reservation directory
-function createMenuItem(itemName, itemPrice){
+function createMenuItem(itemCategory, itemName, itemPrice){
 	//standard reservation children
     
     var newMenuItem = {name: itemName, price: itemPrice};
+	
+	if(itemCategory == "Alcohol" || itemCategory == "SoftDrinks"){
+		var category = menus.child(itemCategory);
+			category.once("value")
+			.then(function(snapshot) {
+				var newKey = snapshot.numChildren(); 
+				menus.child('Drinks/').child(itemCategory + '/' + newKey).set(itemName.toString());
+			}); 
+	}else{
+		var category = menus.child(itemCategory);
+			category.once("value")
+			.then(function(snapshot) {
+			var newKey = snapshot.numChildren(); 
+			menus.child('Food/').child(itemCategory + '/' + newKey).set(itemName.toString());
+			}); 
+	}
 	
     menus.child('MenuItems/' + itemName).set(newMenuItem);	
 	
