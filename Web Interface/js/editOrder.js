@@ -38,7 +38,7 @@ function setForm(){
     
         var updateStatusRef = orders.child(orderStatus); //reference to orderStatus directory
 
-        // snapshot of "Delivered" directory, cycles each child of directory using
+        // snapshot of orderStatus directory, cycles each child of directory using
         // forEach function and fills the form if it contains the orderNumber
         updateStatusRef.once("value")
               .then(function(snapshot) {

@@ -60,13 +60,21 @@ function createOrder(menuItem, tableNumber){
     
     // creates snapshot at "Placed" directory and creates a new key based
     // on the number of children of Placed, and saves the orderkey at the key
-    // in placed
+    // in placed, if directory has empty string as only child, will replace
+    // value at key 0
     var placed = orders.child('Placed');
         placed.once("value")
           .then(function(snapshot) {
             var newKey = snapshot.numChildren(); 
-            orders.child('Placed/' + newKey).set(orderNumber.toString());
- 
-  });
-    
+            
+            // replace value at key 0 if empty
+            if(snapshot.child(0).val() == ""){
+                orders.child('Placed/' + 0).set(orderNumber.toString());
+            }
+            else{
+                orders.child('Placed/' + newKey).set(orderNumber.toString());
+            }
+            
+        });
+
 }

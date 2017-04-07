@@ -1,51 +1,53 @@
-var orders = firebase.database().ref().child('Orders');
+var orders = firebase.database().ref().child('Orders'); // references to firebase
 var orderList = orders.child('OrderList');
 
+// runs onLoad for "viewOrders.html"
 function loadOrders(){
 
+    // creates snapshot for orderList directory
     orderList.once("value")
       .then(function(snapshot) {
 
-        
+        // cycles through each child (orders) in orderList
         snapshot.forEach(function(childSnapshot){
             
-        var orderNumber = childSnapshot.key;
-        //var childData = (array)childSnapshot.val();
-        var childData = new Array();
-        var i = 0;  
+            // orderNumber is the key for the Order and 
+            // childData will hold the values from the order
+            // item and tableKey
+            var orderNumber = childSnapshot.key;
+            var childData = new Array();  
             
-        childSnapshot.forEach(function(orderValues){
-            childData.push(orderValues.val());
-                              });
-            
-       // console.log("orderNumber:" + orderNumber);
-        //console.log("foodItem:" + childData[0]);
-        //console.log("tableNumber:" + childData[1]);
+            // cycles through the children of each order
+            // and pushes item and tableKey to childData
+            childSnapshot.forEach(function(orderValues){
+                childData.push(orderValues.val());
+            });
 
-        if(orderNumber == 'Example'){
-            
-        }
-        else{
-            deliveredOrders(orderNumber, childData);
-            
-            inProgressOrders(orderNumber, childData);
-            placedOrders(orderNumber, childData);
-            readyOrders(orderNumber, childData);
-            seeKitchenOrders(orderNumber, childData);
-        }
+            // avoids the "Example" order, there to avoid deleting 
+            // OrderList
+            if(orderNumber == 'Example'){
+                // nothing
+            }
+            else{
+                // checks each orderStatus and prints the orders that are
+                // found in that directory to the table
+                printOrders(orderNumber, childData, "Delivered");
+                printOrders(orderNumber, childData, "InProgress");
+                printOrders(orderNumber, childData, "Placed");
+                printOrders(orderNumber, childData, "Ready");
+                printOrders(orderNumber, childData, "SeeKitchen");
 
-
-      });
+            }
+        });
      });
 
+     // adds a new row to the table with the right parameters
      function addToTable(orderNumber, childData, orderStatus){
+         // declare edit button and delete button
         var editButton = '<a class="blue-text" id="'+orderNumber+'" onClick="editAction(this.id)"><i class="fa fa-pencil"></i></a>';
-        //editButton.id = orderNumber;
-        //editButton.onClick = editAction(this.id);
-         
         var deleteButton = '<a class="red-text" id="'+orderNumber+'" onClick="deleteAction(this.id)"><i class="fa fa-times">';
-        deleteButton.id = orderNumber;
          
+        // creates a row with 5 horizontal cells in "orderTable" in "viewOrders.html"
         var table = document.getElementById("orderTable");
         var rowCount = table.rows.length; 
         var row = table.insertRow(rowCount);
@@ -54,143 +56,138 @@ function loadOrders(){
         var cell3 = row.insertCell(2);
         var cell4 = row.insertCell(3);
         var cell5 = row.insertCell(4);
-        //var cell6 = row.insertCell(5);
          
+        // fill in each cell in the row
         cell1.innerHTML = orderNumber;  // order ID
         cell2.innerHTML = childData[1]; // Table Number
         cell3.innerHTML = childData[0]; // Menu Item
         cell4.innerHTML = orderStatus; //  should be table status
-        cell5.innerHTML = editButton + " " + deleteButton;
+        cell5.innerHTML = editButton + " " + deleteButton; // self-explanatory
      }
     
-    function deliveredOrders(orderNumber, childData){
-        var delivered = orders.child('Delivered');
-        //var result;
+    // finds the orderStatus of the orderNumber and prints it to the table
+    function printOrders(orderNumber, childData, orderStatus){
+       
+        var currentOrderRef = orders.child(orderStatus); // reference to firebase for orderStatus
         
-        delivered.once("value")
-              .then(function(deliveredSnapshot) {
-                   deliveredSnapshot.forEach(function(childSnapshot){
-
-                    //console.log(childSnapshot.key); 
-                    //console.log(childSnapshot.val())
-                    
-                   if(childSnapshot.val() === orderNumber){
-                       //console.log("luck");
-                       addToTable(orderNumber, childData, "Delivered")   
-                   }
-                   else{
-                       //console.log("bad luck");
-                    }
-              });
-         });
-        
-    }
-    
-    function inProgressOrders(orderNumber, childData){
-        var inProgress = orders.child('InProgress');
-        //var result;
-        
-        inProgress.once("value")
-              .then(function(inProgressSnapshot) {
-                   inProgressSnapshot.forEach(function(childSnapshot){
-
-                    //console.log(childSnapshot.key); 
-                    //console.log(childSnapshot.val())
-                   
-                   if(childSnapshot.val() === orderNumber){
-                       //console.log("luck");
-                       addToTable(orderNumber, childData, "In Progress")   
-                   }
-                   else{
-                       //console.log("bad luck");
-                    }
-              });
-         });
-        
-    }
-    
-    function placedOrders(orderNumber, childData){
-        var placed = orders.child('Placed');
-        //var result;
-        
-        placed.once("value")
-              .then(function(placedSnapshot) {
-                   placedSnapshot.forEach(function(childSnapshot){
-
-                    //console.log(childSnapshot.key); 
-                    //console.log(childSnapshot.val())
-                  
-                   if(childSnapshot.val() === orderNumber){
-                       //console.log("luck");
-                       addToTable(orderNumber, childData, "Placed")   
-                   }
-                   else{
-                       //console.log("bad luck");
-                    }
-              });
-         });
-        
-    }
-    
-    function readyOrders(orderNumber, childData){
-        var ready = orders.child('Ready');
-        //var result;
-        
-        ready.once("value")
-              .then(function(readySnapshot) {
-                   readySnapshot.forEach(function(childSnapshot){
-
-                    //console.log(childSnapshot.key); 
-                    //console.log(childSnapshot.val())
-                   
-                   if(childSnapshot.val() === orderNumber){
-                       //console.log("luck");
-                       addToTable(orderNumber, childData, "Ready")   
-                   }
-                   else{
-                       //console.log("bad luck");
-                    }
-              });
-         });
-        
-    }
-    
-    function seeKitchenOrders(orderNumber, childData){
-        var seeKitchen = orders.child('SeeKitchen');
-        //var result;
-        
-        seeKitchen.once("value")
-              .then(function(seeKitchenSnapshot) {
-                   seeKitchenSnapshot.forEach(function(childSnapshot){
-
-                    //console.log(childSnapshot.key); 
-                    //console.log(childSnapshot.val())
-                    
-                   if(childSnapshot.val() === orderNumber){
-                       //console.log("luck");
-                       addToTable(orderNumber, childData, "See Kitchen")   
-                   }
-                   else{
-                       //console.log("bad luck");
-                    }
+        // snapshot for orderStatus
+        currentOrderRef.once("value")
+              .then(function(snapshot) {
+                    // cycles through each child order in orderStatus
+                   snapshot.forEach(function(childSnapshot){
+                        // if the orderNumber is a child of orderStatus it will be added to the 
+                       // table with that orderStatus
+                       if(childSnapshot.val() === orderNumber){
+                           addToTable(orderNumber, childData, orderStatus)   
+                       }
+                       else{
+                           // nothing
+                        }
               });
          });
         
     }
 }
 
-
+// runs when an editButton is clicked, the parameter is the corresponding 
+// orderNumber for the button's row
 function editAction(orderNumber){
     console.log("edit " + orderNumber);
+    
+    // saves the orderNumber to localStorage for retrieval in "editOrder.html"
     localStorage.setItem("orderNumber", orderNumber);
-    window.location.href = 'editOrder.html';
+    window.location.href = 'editOrder.html'; // navigate to "editOrder.html"
 }
 
+// runs when a deleteButton is clicked, the parameter is the corresponding
+// orderNumber for the button's row
 function deleteAction(orderNumber){
+    // double check it's the right order to delete
     if(confirm('Are you sure you wish to delete order ' + orderNumber + '?')){
         orderList.child(orderNumber).remove();
+        deleteStatusHandler(orderNumber);
         console.log("delete " + orderNumber);
-        location.reload(true);
+        location.reload(true); // reload page after deleting order
     }
-    else{}
+    else{
+        //nothing
+    }
+}
+
+// calls delete status for each possible orderStatus
+function deleteStatusHandler(orderNumber){
+    deleteStatus(orderNumber, "Delivered");
+    deleteStatus(orderNumber, "InProgress");
+    deleteStatus(orderNumber, "Placed");
+    deleteStatus(orderNumber, "Ready");
+    deleteStatus(orderNumber, "SeeKitchen");
+}
+
+// deletes orderNumber if it is a child of orderStatus
+function deleteStatus(orderNumber, orderStatus){
+    
+    // pause for synchronicity
+    pause(250);    
+        
+    var deleteStatusRef = orders.child(orderStatus); //reference for the orderStatus
+
+        // creates snapshot of the directory for the orderStatus
+        deleteStatusRef.once("value")
+              .then(function(snapshot) {
+
+                    // create array to store any values not removed from orderStatus directory
+                    var reorderArray = new Array();
+                    var numChild = snapshot.numChildren(); // number of orders under orderStatus
+
+                    // cycles through each child of orderStatus directory
+                    snapshot.forEach(function(childSnapshot){
+
+                        // push the orderNumber at the current child to reorderArray
+                        reorderArray.push(childSnapshot.val());
+
+                        // check if the value of current child is the orderNumber to remove
+                       if(childSnapshot.val() === orderNumber){
+
+                            // check if the orderNumber to remove is the last child under the 
+                           // orderStatus directory
+                           if(numChild > 1){
+                               // remove orderNumber from orderStatus directory, and remove
+                               // from reorderArray so it's not added back to orderStatus
+                                deleteStatusRef.child(childSnapshot.key).remove();
+                                reorderArray.pop();
+                           }
+                           else{
+                               // leave an empty string at key 0, clear array
+                                orders.child(orderStatus +'/' + 0).set("");
+                                reorderArray.pop();
+                           }  
+                       }
+                       else{
+                            //nothing
+                       }
+              });
+
+            // check if any orderNumber was removed from orderStatus, if numChild and
+            // reorderArray.length match
+            if(numChild === reorderArray.length){
+                //nothing
+            }
+            else if(numChild === 1){ // this is the last remaining child and has already been set as empty string
+                //nothing
+            }
+            else{
+                //remove largest key as it will not be replaced by the reorderArray, avoids duplicates
+                deleteStatusRef.child(numChild - 1).remove();
+                // pushes each value in array to corresponding key at orderStatus
+                for(var i = 0; i<reorderArray.length; i++){
+                    orders.child(orderStatus + '/' + i).set(reorderArray[i]);
+                }
+            }
+         });
+}
+
+// pause for synchronicity purposes due to firebase
+function pause(milliseconds) {
+	var firstDate = new Date();
+	while ((new Date()) - firstDate <= milliseconds) { /* Do nothing */ }
 }
