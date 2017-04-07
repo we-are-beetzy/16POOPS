@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Help's Kitchen</title>
+    <title>Help's Kitchen: Edit Reservation</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
@@ -17,7 +17,7 @@
 
 </head>
 
-<body onload ="loadReservations()">
+<body onload="setForm()">
 
 	<nav class="navbar navbar-toggleable-md navbar-light amber accent-2 bg-faded">
 	  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,68 +54,84 @@
 	  </div>
 	</nav>
 
-
-
 	<!--Form without header-->
 	<div class="container-fluid top-buffer">
+
 	
 		<li>
 			<div class="card col-md-12">
 				<div class="card-block">
-
-					<!--Header-->
+				
 					<div class="text-xs-center">
-						<h3><i class="fa"></i> Current Reservations:</h3>
+						<h3><i class="fa fa-user"></i> Edit Reservation:</h3>
+						<hr class="mt-2 mb-2">
 					</div>
+	
+					<form name="editReservation">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="md-form">
+									<i class="fa prefix"></i>
+									<input type="text" id="partyName" class="form-control validate">
+									<!-- <label for="partyName">Party Name</label> -->
+								</div>
+							</div>
 
-					<!--Body-->
-					<!---Use JavaScript to select from table then use buttons at bottom
-							to either edit or delete--->
-					<table class="table" id="resTable">
-						<tr>
-							<th>Date</th>
-							<th>Party Name</th>
-							<th>Number in Party</th>
-							<th>Time</th>
-							<th>Actions</th>
-						</tr>
-					</table>
-					<div class="row justify-content-md-center">
-					<div class="text-xs">
-						<a href="createReservation.html">
-							<button class="btn UCFgold accent-2">Create New Reservation</button>						
-						</a>
-					</div>
-					</div>
+							<div class="col-md-2">
+								<div class="md-form">
+									<i class="fa prefix"></i>
+									<input type="text" id="partyNumber" class="form-control validate">
+									<!-- <label for="partyNumber">Number in Party</label> -->
+								</div>
+							</div>
+						</div>
+					
+					
+					<!--- Use http://www.malot.fr/bootstrap-datetimepicker/ --->
+						<div class="row">
+							<div class="col-md-4">
+								<div class="md-form">
+									<i class="fa  fa-calendar prefix"></i>
+									<input type="date" id="date" class="form-control validate">
+								</div>
+							</div>
+
+							<div class="col-md-2">
+								<div class="md-form">
+									<i class="fa fa-clock-o prefix"></i>
+									<input type="time" id="time" class="form-control validate">
+								</div>
+							</div>
+						</div>
+						
+						<div class="text-center">
+
+							<button type="submit" class="btn amber accent-2" onclick="updateReservation()">Update Reservation</button>
+	
+
+						</div>
+						
+					</form>
+					
+
 				</div>
+
 
 			</div>
 		</li>
 		
-		<!---want to make this two columns side by side, doesn't make sense to make this vertical--->
-		<li>
-			<div class="card col-md-12">
-				<div class="card-block">
-
-					<!--Header-->
-					<div class="text-xs-center">
-						<h3><i class="fa"></i> Reservations per Hour:</h3>
-					</div>
-
-					<img src="http://www.conceptdraw.com/How-To-Guide/picture/Vertical-bar-chart-Global-competitiveness-index-infrastructure-score.png"
-							height ="400" width="300"></img>
-
-				</div>
-				
-				<!--Footer-->
-
+		<div class="modal-footer">
+			<div class="options">
+				<p><a href="manageReservations.html" onclick="loseInformation()">Return to Reservations</a></p>
 			</div>
-		</li>
+		</div>
 		
 		
 	</div>
 	
 
+	
+	
 
 <!--/Form without header-->
 
@@ -123,9 +139,8 @@
     <!-- /Start your project here-->
     
     <!-- SCRIPTS -->
-	<!-- Firebase -->
-	<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+	<!-- FireBase -->	
+<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
 <script>
   // Initialize Firebase
   var config = {
@@ -137,8 +152,8 @@
   };
   firebase.initializeApp(config);
 </script>
-</script>
-	
+	<!-- JavaScript -->
+	<script language="javascript" src="js/editReservation.js"></script>
     <!-- JQuery -->
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <!-- Bootstrap tooltips -->
@@ -147,7 +162,7 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
-	<script language="javascript" src="js/manageReservations.js"></script>
 </body>
 
 </html>
+
