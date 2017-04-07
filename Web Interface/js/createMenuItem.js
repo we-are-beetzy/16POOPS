@@ -43,18 +43,19 @@ function createMenuItem(itemCategory, itemName, itemPrice){
     var newMenuItem = {name: itemName, price: itemPrice};
 	
 	if(itemCategory == "Alcohol" || itemCategory == "SoftDrinks"){
-		var category = menus.child(itemCategory);
+		var category = menus.child('Drinks').child(itemCategory);
 			category.once("value")
 			.then(function(snapshot) {
 				var newKey = snapshot.numChildren(); 
+				console.log("numChildren is:" + newKey);
 				menus.child('Drinks/').child(itemCategory + '/' + newKey).set(itemName.toString());
 			}); 
 	}else{
 		var category = menus.child(itemCategory);
 			category.once("value")
 			.then(function(snapshot) {
-			var newKey = snapshot.numChildren(); 
-			menus.child('Food/').child(itemCategory + '/' + newKey).set(itemName.toString());
+				var newKey = snapshot.numChildren(); 
+				menus.child('Food/').child(itemCategory + '/' + newKey).set(itemName.toString());
 			}); 
 	}
 	
