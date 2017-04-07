@@ -21,11 +21,11 @@ function setForm(){
         orders.once("value")
         .then(function(snapshot) {
               snapshot.forEach(function(childSnapshot){
-                  updateStatus(orderNumber, tableNumber, menuItem, "Delivered");
-                  updateStatus(orderNumber, tableNumber, menuItem, "InProgress");
-                  updateStatus(orderNumber, tableNumber, menuItem, "Placed");
-                  updateStatus(orderNumber, tableNumber, menuItem, "Ready");
-                  updateStatus(orderNumber, tableNumber, menuItem, "SeeKitchen");
+                  updateOrder(orderNumber, tableNumber, menuItem, "Delivered");
+                  updateOrder(orderNumber, tableNumber, menuItem, "InProgress");
+                  updateOrder(orderNumber, tableNumber, menuItem, "Placed");
+                  updateOrder(orderNumber, tableNumber, menuItem, "Ready");
+                  updateOrder(orderNumber, tableNumber, menuItem, "SeeKitchen");
               });
             });
 
@@ -33,8 +33,8 @@ function setForm(){
     });
     
     // pre-fills the form using the "fillForm" function after finding out
-    // if the orderNumber is found under "Delivered"
-    function updateStatus(orderNumber, tableNumber, menuItem, orderStatus){
+    // if the orderNumber is found under orderStatus
+    function updateOrder(orderNumber, tableNumber, menuItem, orderStatus){
     
         var updateStatusRef = orders.child(orderStatus); //reference to orderStatus directory
 
@@ -54,110 +54,22 @@ function setForm(){
          });
         
     }
-    
-    // pre-fills the form using the "fillForm" function after finding out
-    // if the orderNumber is found under "InProgress"
-    function updateInProgress(orderNumber, tableNumber, menuItem){
-    
-        var inProgress = orders.child('InProgress'); //reference to "InProgress" Directory
-
-        // snapshot of "InProgress" directory, cycles each child of directory using
-        // forEach function and fills the form if it contains the orderNumber
-        inProgress.once("value")
-              .then(function(inProgressSnapshot) {
-                   inProgressSnapshot.forEach(function(childSnapshot){
-                       
-                       if(childSnapshot.val() === orderNumber){
-                           fillForm(tableNumber, menuItem, "InProgress");   
-                       }
-                       else{
-
-                       }
-              });
-         });
-        
-    }
-    
-    // pre-fills the form using the "fillForm" function after finding out
-    // if the orderNumber is found under "Placed"
-    function updatePlaced(orderNumber, tableNumber, menuItem){
-        
-        var placed = orders.child('Placed'); //reference to "Placed" directory
-
-        // snapshot of "Placed" directory, cycles each child of directory using
-        // forEach function and fills the form if it contains the orderNumber
-        placed.once("value")
-              .then(function(placedSnapshot) {
-                   placedSnapshot.forEach(function(childSnapshot){
   
-                       if(childSnapshot.val() === orderNumber){
-                           fillForm(tableNumber, menuItem, "Placed");   
-                       }
-                       else{
-                           
-                        }
-              });
-         });
-        
-    }
-    
-    // pre-fills the form using the "fillForm" function after finding out
-    // if the orderNumber is found under "Ready"
-    function updateReady(orderNumber, tableNumber, menuItem){
-        
-        var ready = orders.child('Ready'); // reference to "Ready" Directory
- 
-        // snapshot of "Ready" directory, cycles each child of directory using
-        // forEach function and fills the form if it contains the orderNumber        
-        ready.once("value")
-              .then(function(readySnapshot) {
-                   readySnapshot.forEach(function(childSnapshot){
-                       
-                       if(childSnapshot.val() === orderNumber){
-                           fillForm(tableNumber, menuItem, "Ready");   
-                       }
-                       else{
-
-                        }
-              });
-         });
-        
-    }
-    
-    // pre-fills the form using the "fillForm" function after finding out
-    // if the orderNumber is found under "seeKitchen"
-    function updateSeeKitchen(orderNumber, tableNumber, menuItem){
-        
-        var seeKitchen = orders.child('SeeKitchen'); // reference "seeKitchen" Directory
-
-        // snapshot of "seeKitchen" directory, cycles each child of directory using
-        // forEach function and fills the form if it contains the orderNumber  
-        seeKitchen.once("value")
-              .then(function(seeKitchenSnapshot) {
-                   seeKitchenSnapshot.forEach(function(childSnapshot){
-
-                       if(childSnapshot.val() === orderNumber){
-                           fillForm(tableNumber, menuItem, "SeeKitchen");   
-                       }
-                       else{
-                           
-                        }
-              });
-         });
-        
-    }
-    
     // fills in the parameter into the corresponding inputs on the form in
     // "editOrder.html"
     function fillForm(tableNumber, menuItem, orderStatus){
         document.getElementById("tableNumber").value = tableNumber;
         document.getElementById("menuItem").value = menuItem;
         document.getElementById("orderStatus").value = orderStatus;
+        localStorage.setItem("oldOrderStatus", orderStatus);
     }
 }
 
 // save changes made to the form to Firebase
 function saveChanges(){
+    // read variable from "oldOrderStatus" in localStorage
+    var oldOrderStatus = localStorage.getItem("oldOrderStatus"); 
+ 
     // save inputs from the form as variables
     var menuItem = document.forms["editOrder"]["menuItem"].value;
     var tableNumber = document.forms["editOrder"]["tableNumber"].value;
@@ -169,11 +81,17 @@ function saveChanges(){
     // push updatedOrder to firebase
     orders.child('OrderList/' + orderNumber).set(updatedOrder);
     
-    // make statuschanges in Firebase, if necessary
-    updateStatus(orderStatus, orderNumber);
+    if(orderStatus === oldOrderStatus){
+        // nothing
+    }
+    else{
+        // make statuschanges in Firebase, if necessary
+        updateStatus(orderStatus, orderNumber);
+    }
     
     // clean up after yourself
     localStorage.removeItem("orderNumber");
+    localStorage.removeItem("oldOrderStatus");
     
     // return to table view
     window.location.href = 'viewOrders.html';
@@ -196,8 +114,6 @@ function updateStatus(orderStatus, orderNumber){
     removeStatus(orderNumber, "Placed");
     removeStatus(orderNumber, "Ready");
     removeStatus(orderNumber, "SeeKitchen");
-
-
         
     var newStatus = orders.child(orderStatus); // reference to the new orderStatus directory
         
