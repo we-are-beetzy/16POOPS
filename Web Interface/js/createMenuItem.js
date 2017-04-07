@@ -64,15 +64,3 @@ function createMenuItem(itemCategory, itemName, itemPrice){
 	window.alert("Created " + itemName + ".");  
     
 }
-
-function loseInformation(){
-	if(name.length > 0 || number.length > 0){
-		if(confirm('Are you sure? You will lose all of your data')){
-			window.location.href = "menu.html";
-		}
-		else{
-			return;
-		}
-		
-	}
-}
