@@ -3,10 +3,6 @@ var orderNumber = localStorage.getItem("orderNumber");
 var orders = firebase.database().ref().child('Orders');
 var orderToEdit = orders.child('OrderList/' + orderNumber);
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 function setForm(){
     //document.getElementById("menuItem").value = "Apple Pie";
     
