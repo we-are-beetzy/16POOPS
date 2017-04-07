@@ -14,10 +14,11 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
+		<link rel="icon" type="image/png" href="./img/HK180.png">
 
 </head>
 
-<body>
+<body onload="loadTables()";>
 
 	<nav class="navbar navbar-toggleable-md navbar-light UCFgold accent-2 bg-faded">
 	  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,88 +57,46 @@
 
 
 <!--Form without header-->
-<div class="container top-buffer">
-    <div class="card">
-        <div class="card-block">
-        <!--Header-->
-        <div class="text-xs-center">
-            <h3><i class="fa fa-table"></i> Table Status:</h3>
-            <hr class="mt-2 mb-2">
-        </div>
-            
-            <table class="table table-striped">
-                <thead class="thead-default">
-                    <tr>
-                        <th>#</th>
-                        <th>Status</th>
-                        <th>Owner</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                            <th scope="row">1</th>
-                            <td>Available</td>
-                            <td>Brady</td>
-                            <td>
-                                <a class="blue-text" onclick="MyWindow=window.open('./editTable.html,'MyWindow',width=600,height=300); return false;"><i class="fa fa-pencil"></i></a>
-                                <a class="red-text"><i class="fa fa-times"></i></a>
-                            </td>
-                    </tr>
-                    <tr>
-                            <th scope="row">2</th>
-                            <td>Closing</td>
-                            <td>Carlos</td>
-                            <td>
-                                <a class="blue-text" onclick="MyWindow=window.open('./editTable.html,'MyWindow',width=600,height=300); return false;"><i class="fa fa-pencil"></i></a>
-                                <a class="red-text"><i class="fa fa-times"></i></a>
-                            </td>
-                    </tr>
-                    <tr>
-                            <th scope="row">3</th>
-                            <td>Seated</td>
-                            <td>Stephen</td>
-                            <td>
-                                <a class="blue-text" onclick="MyWindow=window.open('./editTable.html','MyWindow',width=600,height=300); return false;"><i class="fa fa-pencil"></i></a>
-                                <a class="red-text"><i class="fa fa-times"></i></a>
-                            </td>
-                    </tr>
-                    <tr>
-                            <th scope="row">4</th>
-                            <td>Available</td>
-                            <td>Lucas</td>
-                            <td>
-                                <a class="blue-text" onclick="MyWindow=window.open('./editTable.html','MyWindow',width=600,height=300); return false;"><i class="fa fa-pencil"></i></a>
-                                <a class="red-text"><i class="fa fa-times"></i></a>
-                            </td>
-                    </tr>
-                    <tr>
-                            <th scope="row">5</th>
-                            <td>Seated</td>
-                            <td>Nate</td>
-                            <td>
-                                <a class="blue-text"><i class="fa fa-pencil"></i></a>
-                                <a class="red-text"><i class="fa fa-times"></i></a>
-                            </td>
-                    </tr>
-                    <tr>
-                            <th scope="row">6</th>
-                            <td>Available</td>
-                            <td>Brandon</td>
-                            <td>
-                                <a class="blue-text" onclick="MyWindow=window.open('./editTable.html,'MyWindow',width=600,height=300); return false;"><i class="fa fa-pencil"></i></a>
-                                <a class="red-text"><i class="fa fa-times"></i></a>
-                            </td>
-                    </tr>
-                </tbody>
-            </table>
+	<!--Form without header-->
+	<div class="container-fluid top-buffer">
+	
+		<li>
+			<div class="card col-md-12">
+				<div class="card-block">
 
-        </div>
-    </div>
-<div>
+					<!--Header-->
+					<div class="text-xs-center">
+						<h3><i class="fa"></i> Tables:</h3>
+					</div>
+
+					<!--Body-->
+					<!--Use JavaScript to select from table then use buttons at bottom to either edit or delete-->
+					<table class="table" id="tableTable">
+						<tr>
+                            <th>Table No.</th>
+							<th>Capacity</th>
+							<th>Status</th>
+							<th>Reservation</th>
+                            <th>Actions</th>
+						</tr>
+					</table>
+	               
+                    <div class="row justify-content-md-center">
+                        <div class="text-xs">
+                            <a href="createOrder.html">
+                                <button class="btn UCFgold accent-2" href="createOrder.html">Create New Table</button>						
+                            </a>
+                        </div>
+                    </div>
+					
+				</div>
+
+			</div>
+		</li>
+		
+	</div>
     
     
-<!--/Form without header-->
 
     
     <!-- /Start your project here-->
@@ -158,6 +117,7 @@
     
     <!-- SCRIPTS -->
     <!-- JQuery -->
+    <script type="text/javascript" src="js/viewTables.js"></script>
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <!-- Bootstrap tooltips -->
     <script type="text/javascript" src="js/tether.min.js"></script>
