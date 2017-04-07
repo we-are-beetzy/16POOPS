@@ -51,11 +51,11 @@
 			</li>
                                                 
                         <li class="nav item">
-				<a class="nav-link" href="viewMenu.html">Manage Menu <span class="sr-only"></span></a>
+				<a class="nav-link" href="menu.html">Manage Menu <span class="sr-only"></span></a>
 			</li>
                         
                           <li class="nav item">
-				<a class="nav-link" href="createMenuItem.html">Create Menu Item <span class="sr-only"></span></a>
+				<a class="nav-link active" href="createMenuItem.html">Edit Menu Item <span class="sr-only">(current)</span></a>
 			</li>
 		
 		</ul>
@@ -78,23 +78,23 @@
 					<form name="createMenuItem">
 						<div class="row justify-content-md-center">
 						
-						<!-- <div class="col-md-4">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label for="menuCategory">Select Menu Category:</label>
 									<select class="form-control" id="menuCategory">
+										<optgroup label="Drinks">
+                                            <option value="Alcohol">Alcohol</option>
+                                            <option value="SoftDrinks">Soft Drinks</option>
+                                        </optgroup>
 										<optgroup label="Food">
 											<option value="Appetizers">Appetizers</option> 
 											<option value="Dessert">Dessert</option> 
 											<option value="Entree">Entree</option>
 											<option value="Sides">Sides</option> 											
                                         </optgroup>
-                                        <optgroup label="Drinks">
-                                            <option value="Alcohol">Alcohol</option>
-                                            <option value="SoftDrinks">Soft Drinks</option>
-                                        </optgroup>
 									</select>
 							</div>
-						</div>-->
+						</div>
 						
 							<div class="col-md-2">
 								<div class="md-form">
@@ -115,7 +115,7 @@
 						
 						<div class="text-center">
 
-							<button type="submit" class="btn amber accent-2" onclick="editMenuItem()">Edit Menu Item</button>
+							<button type="submit" class="btn amber accent-2" onclick="makeMenuItem();">Save Menu Item</button>
 	
 
 						</div>
@@ -131,7 +131,7 @@
 		
 		<div class="modal-footer">
 			<div class="options">
-				<p><a href="viewMenu.html" onclick="loseInformation()">Return to Menu</a></p>
+				<p><a href="viewMenu.html">Return to Menu</a></p>
 			</div>
 		</div>
 		
