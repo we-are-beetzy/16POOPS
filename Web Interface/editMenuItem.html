@@ -17,7 +17,7 @@
 
 </head>
 
-<body onload="loadMenu();">
+<body>
 
 	<nav class="navbar navbar-toggleable-md navbar-light amber accent-2 bg-faded">
 	  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,9 +49,9 @@
 			<li class="nav item">
 				<a class="nav-link" href="manageReservations.html">Manage Reservations <span class="sr-only">(current)</span></a>
 			</li>
-                        
+                                                
                         <li class="nav item">
-				<a class="nav-link active" href="menu.html">Manage Menu <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="menu.html">Manage Menu <span class="sr-only">(current)</span></a>
 			</li>
                         
                           <li class="nav item">
@@ -62,45 +62,85 @@
 	  </div>
 	</nav>
 
-
-
 	<!--Form without header-->
 	<div class="container-fluid top-buffer">
+
 	
 		<li>
 			<div class="card col-md-12">
 				<div class="card-block">
-
-					<!--Header-->
+				
 					<div class="text-xs-center">
-						<h3><i class="fa"></i> Menu Items:</h3>
+						<h3><i class="fa fa-user"></i> Edit Menu Item:</h3>
+						<hr class="mt-2 mb-2">
 					</div>
-
-					<!--Body-->
-					<!---Use JavaScript to select from table then use buttons at bottom
-							to either edit or delete--->
-					<table class="table" id = "menuTable">
-						<tr>
-							<th>Category:</th>
-							<th>Name:</th>
-							<th>Price:</th>
-							<th>Actions:</th>
-						</tr>
-					</table>
 	
-					<div class="text-xs">
-						<a href="createMenuItem.html">
-							<button class="btn UCFgold accent-2">Create</button>						
-						</a>
-					</div>
+					<form name="createMenuItem">
+						<div class="row justify-content-md-center">
+						
+						<!-- <div class="col-md-4">
+							<div class="form-group">
+								<label for="menuCategory">Select Menu Category:</label>
+									<select class="form-control" id="menuCategory">
+										<optgroup label="Food">
+											<option value="Appetizers">Appetizers</option> 
+											<option value="Dessert">Dessert</option> 
+											<option value="Entree">Entree</option>
+											<option value="Sides">Sides</option> 											
+                                        </optgroup>
+                                        <optgroup label="Drinks">
+                                            <option value="Alcohol">Alcohol</option>
+                                            <option value="SoftDrinks">Soft Drinks</option>
+                                        </optgroup>
+									</select>
+							</div>
+						</div>-->
+						
+							<div class="col-md-2">
+								<div class="md-form">
+									<i class="fa prefix"></i>
+									<input type="text" id="itemName" class="form-control validate">
+									<label for="name">Name</label>
+								</div>
+							</div>    
+
+							<div class="col-md-2">
+								<div class="md-form">
+									<i class="fa prefix"></i>
+									<input type="text" id="itemPrice" class="form-control validate">
+									<label for="price">Price</label>
+								</div>
+							</div>
+						</div>
+						
+						<div class="text-center">
+
+							<button type="submit" class="btn amber accent-2" onclick="editMenuItem()">Edit Menu Item</button>
+	
+
+						</div>
+						
+					</form>
 					
+
 				</div>
+
 
 			</div>
 		</li>
+		
+		<div class="modal-footer">
+			<div class="options">
+				<p><a href="menu.html" onclick="loseInformation()">Return to Menu</a></p>
+			</div>
+		</div>
+		
+		
 	</div>
 	
 
+	
+	
 
 <!--/Form without header-->
 
@@ -108,9 +148,8 @@
     <!-- /Start your project here-->
     
     <!-- SCRIPTS -->
-	<!-- Firebase -->
+	<!-- FireBase -->	
 	<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
 	<script>
 	  // Initialize Firebase
 	  var config = {
@@ -123,7 +162,7 @@
 	  firebase.initializeApp(config);
 	</script>
 	<!-- JavaScript -->
-	<script language="javascript" src="js/menu.js"></script>
+	<script language="javascript" src="js/editMenuItem.js"></script>
     <!-- JQuery -->
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <!-- Bootstrap tooltips -->
