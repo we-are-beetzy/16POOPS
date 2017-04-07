@@ -89,7 +89,7 @@ function createReservation(name, number, dateInt){
     
     window.console.log(dateInt);
     
-    var numParty = parseInt(number);
+    var numParty = parseInt(number); // partySize should be 'int' when pushed to firebase
 
 	var reservation = {name: name, partySize: numParty, dateTime: dateInt};
     
