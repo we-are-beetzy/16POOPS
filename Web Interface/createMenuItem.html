@@ -76,14 +76,33 @@
 					</div>
 	
 					<form name="createMenuItem">
-						<div class="row">
+						<div class="row justify-content-md-center">
+						
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="menuCategory">Select Menu Category:</label>
+									<select class="form-control" id="menuCategory">
+										<optgroup label="Food">
+											<option value="Appetizers">Appetizers</option> 
+											<option value="Dessert">Dessert</option> 
+											<option value="Entree">Entree</option>
+											<option value="Sides">Sides</option> 											
+                                        </optgroup>
+                                        <optgroup label="Drinks">
+                                            <option value="Alcohol">Alcohol</option>
+                                            <option value="SoftDrinks">Soft Drinks</option>
+                                        </optgroup>
+									</select>
+							</div>
+						</div>
+						
 							<div class="col-md-2">
 								<div class="md-form">
 									<i class="fa prefix"></i>
 									<input type="text" id="itemName" class="form-control validate">
 									<label for="name">Name</label>
 								</div>
-							</div>
+							</div>    
 
 							<div class="col-md-2">
 								<div class="md-form">
@@ -134,12 +153,12 @@
 	<script>
 	  // Initialize Firebase
 	  var config = {
-		apiKey: "AIzaSyDi2GWVDO0DWvmRmI1FX_2CtHVPij_jduI",
-		authDomain: "helps-kitchen-test-database.firebaseapp.com",
-		databaseURL: "https://helps-kitchen-test-database.firebaseio.com",
-		storageBucket: "helps-kitchen-test-database.appspot.com",
-		messagingSenderId: "861591535890"
-	  };
+        apiKey: "AIzaSyD5D23YKyps_69HcPj1Ir7SnaP5I2ondT0",
+        authDomain: "test-c1f82.firebaseapp.com",
+        databaseURL: "https://test-c1f82.firebaseio.com",
+        storageBucket: "test-c1f82.appspot.com",
+        messagingSenderId: "92078539964"
+      };
 	  firebase.initializeApp(config);
 	</script>
 	<!-- JavaScript -->
