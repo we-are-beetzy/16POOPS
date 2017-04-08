@@ -41,9 +41,9 @@ function confirmReservation(){
 	var	date = document.forms["createReservation"]["date"].value;
 	var	time = document.forms["createReservation"]["time"].value;
     var dateInt = createDateTime(date, time);
-    
+	
 	if(confirm('Is the information correct?') && validateForm(name, number, date, time)){
-		window.location.href = "manageReservations.html";
+		//window.location.href = "manageReservations.html";
 		createReservation(name, number, dateInt);
 	}
 	else{
@@ -89,12 +89,8 @@ function createDateTime(date, time) {
 // Pushes data from form fields to firebase database in Reservation directory
 function createReservation(name, number, dateInt){
 	//standard reservation children
-    
-    window.console.log(dateInt);
-    
+     
     var numParty = parseInt(number); // partySize should be 'int' when pushed to firebase
-
-
 	var reservation = {name: name, partySize: numParty, dateTime: dateInt};
     
     var currentTime = new Date();
@@ -103,4 +99,16 @@ function createReservation(name, number, dateInt){
     resNumber = currentTime.getTime(); // change to resCounter when you figure it out
     //resRef.child('resCounter').update( 1);
     ref.child('Reservations/' + resNumber).set(reservation);	
+	
+	
+	var queueRef = ref.child('ReservationQueue');
+	var queueKey;
+	queueRef.once("value")
+		.then(function(snapshot){
+			queueKey = snapshot.numChildren();	
+			console.log(queueKey);
+	});
+	
+	ref.child('ReservationQueue/' + queueKey).set(resNumber);
+	return;
 }
