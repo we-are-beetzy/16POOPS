@@ -4,18 +4,12 @@ var tableList = tables.child('Tables');
 // Generate the tables and their status on page load.
 function loadTables(){
 
-  var query = firebase.database().ref('Tables').orderByChild("key");
+  var query = firebase.database().ref('Tables');
   query.once("value").then(function(snapshot) {
   snapshot.forEach(function(childSnapshot) {
     var table = childSnapshot.key;
     var childData = childSnapshot.val();
-    if (table == 'tableCounter') {
-      ; // Do nothing
-    }
-    else {
-      addToTable(childData);
-    }
-
+    addToTable(childData);
   });
  });
 
@@ -23,7 +17,7 @@ function loadTables(){
 
    // Create edit and delete buttons
    var editButton = '<a class="blue-text" id="'+data.name+'" onClick="editAction(this.id)"><i class="fa fa-pencil"></i></a>';
-   var deleteButton = '<a class="red-text" id="'+data.name+'" onClick="deleteReservation(this.id)"><i class="fa fa-times">';
+   var deleteButton = '<a class="red-text" id="'+data.name+'" onClick="deleteTable(this.id)"><i class="fa fa-times">';
 
    // Create the table for viewTables.html
    var table = document.getElementById('tableTable');
@@ -33,14 +27,15 @@ function loadTables(){
    var cell2 = row.insertCell(1);
    var cell3 = row.insertCell(2);
    var cell4 = row.insertCell(3);
-   var cell5 = row.insertCell(4);
+   var cell5  = row.insertCell(4);
 
    // Populate the table
-   cell1 = data.name;
-   cell2 = data.capacity;
-   cell3 = data.status;
-   cell4 = data.reservationName;
-   cell5 = editButton + " " + deleteButton;
+   cell1.innerHTML = data.name;
+   cell2.innerHTML = data.capacity;
+   cell3.innerHTML = data.status;
+   cell4.innerHTML = data.reservationName;
+   cell5.innerHTML = editButton + " " + deleteButton;
+
  }
 }
 
@@ -52,6 +47,7 @@ function editAction(tableName){
 
 function deleteTable(tableName){
   // Popup confirmation
+  console.log("Deleting Table: " + tableName);
   if(confirm('Are you sure you wish to delete the table \"' + tableName + '\"?')){
     var query = firebase.database().ref('Tables');
     query.once("value")
