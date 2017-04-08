@@ -5,7 +5,7 @@ A simple yet powerful web application to help ease restaurant management. Allows
 # Built With
 
 * [Firebase](https://firebase.google.com/) : Open source web framework and management uti
-* Java 8
+* JavaScript
 
 # Changelog
 
