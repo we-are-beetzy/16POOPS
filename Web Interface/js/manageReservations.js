@@ -2,7 +2,7 @@ var reservationList = firebase.database().ref(); // references to firebase
 var resList = reservationList.child('Reservations');
 
 function loadReservations(){
-
+var i = 0;
 var query = firebase.database().ref('Reservations').orderByChild("dateTime");
 query.once("value").then(function(snapshot) {
 	snapshot.forEach(function(childSnapshot){
@@ -12,17 +12,17 @@ query.once("value").then(function(snapshot) {
 	   ;
 	}
 	else{
-		addToTable(childData);
+		addToTable(reservation, childData);
+		
 	}
-	
   });
  });
-
- function addToTable(data){
+ 
+ function addToTable(reservation, data){
 	 
-	var editButton = '<a class="blue-text" id="'+data.name+'" onClick="editAction(this.id)"><i class="fa fa-pencil"></i></a>';
-    var deleteButton = '<a class="red-text" id="'+data.name+'" onClick="deleteReservation(this.id)"><i class="fa fa-times">';
-	
+	var editButton = '<a class="blue-text" id="'+reservation+'" onClick="editAction(this.id)"><i class="fa fa-pencil"></i></a>';
+    var deleteButton = '<a class="red-text" id="'+reservation+'" onClick="deleteReservation(this.id)"><i class="fa fa-times">';
+	var key = reservation;
 	var table = document.getElementById("resTable");
     var rowCount = table.rows.length; 
 	var row = table.insertRow(rowCount);
@@ -43,34 +43,27 @@ query.once("value").then(function(snapshot) {
 	cell4.innerHTML = timeOfRes;
 	cell5.innerHTML = editButton + " " + deleteButton;
  }
-}
 
-function editAction(resName){  
+}
+function editAction(resKey){  
     // saves the party name to localStorage for retrieval in "editOrder.html"	
-   localStorage.setItem("resName", resName);
+   localStorage.setItem("resKey", resKey);
    window.location.href = 'editReservation.html'; // navigate to "editOrder.html"
 }
 
-function deleteReservation(resName){
-	
-	if(confirm('Are you sure you wish to delete the reservation for ' + resName + '?')){
-		var query = firebase.database().ref('Reservations');
-		query.once("value")
-			.then(function(snapshot) {
-				snapshot.forEach(function(childSnapshot){
-					var reservation = childSnapshot.key;
-					var childData = childSnapshot.val();
-					var n = resName.localeCompare(childData.name);
-					if(n === 0)
-					{
-						
-						firebase.database().ref('Reservations/' + reservation).remove();
-						location.reload(true);
-					}
-					
-			});
-		});
+function deleteReservation(resKey){
 		
-	}
+	var query = firebase.database().ref('Reservations/' + resKey);
+	query.once("value")
+		.then(function(snapshot) {	
+				var childData = snapshot.val();
+				if(confirm("Are you wish to delete the reservation for " + childData.name + "?")){
+					firebase.database().ref('Reservations/' + resKey).remove();
+					location.reload(true);
+				}
+				else{
+					return;
+				}					
+		});
 }
 

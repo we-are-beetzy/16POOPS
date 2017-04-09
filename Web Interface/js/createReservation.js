@@ -2,6 +2,7 @@
 var ref = firebase.database().ref();
 var resRef = ref.child('Reservations');
 
+
 // Checks that all of the fields have a value
 function validateForm(name, number, date, time) {
 	
@@ -43,20 +44,23 @@ function confirmReservation(){
     var dateInt = createDateTime(date, time);
 	
 	if(confirm('Is the information correct?') && validateForm(name, number, date, time)){
-		//window.location.href = "manageReservations.html";
+		
 		createReservation(name, number, dateInt);
+		history.go(-1);
 	}
 	else{
 		// should not clear fields if the information is not correct
 		return;
 	}
+	
 }
+/*
 // if "Return to Reservations" is clicked, alert will pop up,
 // cancel should keep form data and stay on page
 function loseInformation(){
 	if(name.length > 0 || number.length > 0){
 		if(confirm('Are you sure? You will lose all of your data')){
-			window.location.href = "manageReservations.html";
+			
 		}
 		else{
 			return;
@@ -64,7 +68,7 @@ function loseInformation(){
 		
 	}
 }
-
+*/
 // will read data and time inputs and create date object for
 // the reservation time
 function createDateTime(date, time) {
@@ -86,6 +90,7 @@ function createDateTime(date, time) {
     return dateInt;
 }
 
+
 // Pushes data from form fields to firebase database in Reservation directory
 function createReservation(name, number, dateInt){
 	//standard reservation children
@@ -98,17 +103,18 @@ function createReservation(name, number, dateInt){
     //resNumber = resRef.child('resCounter').key;
     resNumber = currentTime.getTime(); // change to resCounter when you figure it out
     //resRef.child('resCounter').update( 1);
-    ref.child('Reservations/' + resNumber).set(reservation);	
 	
-	
-	var queueRef = ref.child('ReservationQueue');
-	var queueKey;
-	queueRef.once("value")
-		.then(function(snapshot){
-			queueKey = snapshot.numChildren();	
-			console.log(queueKey);
-	});
-	
-	ref.child('ReservationQueue/' + queueKey).set(resNumber);
-	return;
+	ref.child('Reservations/' + resNumber).set(reservation);
+
 }
+
+function addToQueue(resNumber){
+	var resQ = ref.child('ReservationQueue');
+	resQ.once("value").then(function(snapshot){
+		var queueKey = snapshot.numChildren();
+		ref.child('ReservationQueue/' + queueKey).set(resNumber);		
+	});
+}
+
+	
+

@@ -1,5 +1,5 @@
-var resName = localStorage.getItem("resName");
-var key;
+var resKey = localStorage.getItem("resKey");
+
 function validateForm(name, number, date, time) {
 	
     if (name === "") {
@@ -45,30 +45,20 @@ function timeStringConvert(dateTime){
 function setForm(){
 	
 
-var query = firebase.database().ref('Reservations');
+var query = firebase.database().ref('Reservations/' + resKey);
 		query.once("value")
-			.then(function(snapshot) {
-				snapshot.forEach(function(childSnapshot){
-					var reservation = childSnapshot.key;
-					var childData = childSnapshot.val();
-					var n = resName.localeCompare(childData.name);
-					if(n === 0)
-					{
-						key = reservation;
-						var name = document.getElementById("partyName");
-						name.value = resName;
-						name = document.getElementById("partyNumber");
-						name.value = childData.partySize;
-						var oldDate = dateStringConvert(childData.dateTime);
-						name = document.getElementById("date");
-						name.value = oldDate;
-						var oldTime = timeStringConvert(childData.dateTime);						
-						name = document.getElementById("time");
-						name.value = oldTime;
-						return true;
-					}
-					
-			});
+			.then(function(snapshot) {								
+				var childData = snapshot.val();				
+				var name = document.getElementById("partyName");
+				name.value = childData.name;
+				name = document.getElementById("partyNumber");
+				name.value = childData.partySize;
+				var oldDate = dateStringConvert(childData.dateTime);
+				name = document.getElementById("date");
+				name.value = oldDate;
+				var oldTime = timeStringConvert(childData.dateTime);						
+				name = document.getElementById("time");
+				name.value = oldTime;							
 		});
 
 }
@@ -97,7 +87,7 @@ function createReservation(name, number, dateInt){
     
 	var resInfo = {name: name, partySize: number, dateTime: dateInt};
 	var ref = firebase.database().ref();
-	ref.child('Reservations/' + key).set(resInfo);
+	ref.child('Reservations/' + resKey).set(resInfo);
 	return;
 }
 
