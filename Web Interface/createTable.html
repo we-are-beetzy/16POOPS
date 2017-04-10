@@ -29,7 +29,7 @@
 			<li class="nav-item">
 				<a class="nav-link" href="index.html">Home <span class="sr-only"></span></a>
 			</li>
-			
+
 			<li class="nav item">
 				<a class="nav-link" href="createAccount.html">Create Account <span class="sr-only"></span></a>
 			</li>
@@ -37,27 +37,27 @@
 			<li class="nav item">
 				<a class="nav-link" href="editAccount.html">Edit Account <span class="sr-only"></span></a>
 			</li>
-			
+
 			<li class="nav item">
 				<a class="nav-link" href="#">Kitchen & Food Status <span class="sr-only"></span></a>
 			</li>
-			
+
 			<li class="nav item">
 				<a class="nav-link" href="#">Table View <span class="sr-only"></span></a>
 			</li>
-			
+
 			<li class="nav item">
 				<a class="nav-link" href="manageReservations.html">Manage Reservations <span class="sr-only"></span></a>
 			</li>
-                                                
+
                         <li class="nav item">
 				<a class="nav-link" href="menu.html">Manage Menu <span class="sr-only"></span></a>
 			</li>
-                        
+
                           <li class="nav item">
 				<a class="nav-link active" href="createMenuItem.html">Create Menu Item <span class="sr-only">(current)</span></a>
 			</li>
-		
+
 		</ul>
 	  </div>
 	</nav>
@@ -65,25 +65,25 @@
 	<!--Form without header-->
 	<div class="container-fluid top-buffer">
 
-	
+
 		<li>
 			<div class="card col-md-12">
 				<div class="card-block">
-				
+
 					<div class="text-xs-center">
 						<h3><i class="fa fa-user"></i> New Table:</h3>
 						<hr class="mt-2 mb-2">
 					</div>
-	
+
 					<form name="createTable">
 						<div class="row justify-content-md-center">
 						<div class="col-md-4">
 							<div class="form-group">
 								<label id="tableStatus">Status:</label>
 									<select class="form-control" id="status">
-                                            <option value="Alcohol">Available</option>
-                                            <option value="Alcohol">Reserved</option>
-                                            <option value="Alcohol">Closing</option>
+                                            <option value="Available">Available</option>
+                                            <option value="Reserved">Reserved</option>
+                                            <option value="Closing">Closing</option>
 									</select>
 							</div>
 						</div>
@@ -95,7 +95,7 @@
 									<input type="text" id="tableName" class="form-control validate">
 									<label for="name">Table Name</label>
 								</div>
-							</div>    
+							</div>
 
 							<div class="col-md-2">
 								<div class="md-form">
@@ -104,53 +104,53 @@
 									<label for="capacity">Seating Capacity</label>
 								</div>
 							</div>
-                                
+
 							<div class="col-md-2">
 								<div class="md-form">
 									<i class="fa prefix"></i>
 									<input type="text" id="reservation" class="form-control validate">
 									<label for="reservation">Reserved for</label>
 								</div>
-							</div>   
-                                
+							</div>
+
                             </div>
-						
+
 						<div class="text-center">
 
 							<button type="submit" class="btn amber accent-2" onclick="confirmTable();">Create Table</button>
-	
+
 
 						</div>
-						
+
 					</form>
-					
+
 
 				</div>
 
 
 			</div>
 		</li>
-		
+
 		<div class="modal-footer">
 			<div class="options">
 				<p><a href="./viewTables.html">Return to Tables</a></p>
 			</div>
 		</div>
-		
-		
-	</div>
-	
 
-	
-	
+
+	</div>
+
+
+
+
 
 <!--/Form without header-->
 
-    
+
     <!-- /Start your project here-->
-    
+
     <!-- SCRIPTS -->
-	<!-- FireBase -->	
+	<!-- FireBase -->
 	<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
 	<script>
 	  // Initialize Firebase
