@@ -42,6 +42,7 @@ function loadTables(){
 function editAction(tableName){
   // Save the table name to localStorage for retrieval in "editTable.html"
   localStorage.setItem("tableName", tableName);
+  console.log(tableName);
   window.location.href = './editTable.html'; // Move to editTable.html
 }
 
