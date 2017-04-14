@@ -9,15 +9,15 @@ function loadTables(){
   snapshot.forEach(function(childSnapshot) {
     var table = childSnapshot.key;
     var childData = childSnapshot.val();
-    addToTable(childData);
+    addToTable(childData, table);
   });
  });
 
- function addToTable(data){
+ function addToTable(data, tableKey){
 
    // Create edit and delete buttons
-   var editButton = '<a class="blue-text" id="'+data.name+'" onClick="editAction(this.id)"><i class="fa fa-pencil"></i></a>';
-   var deleteButton = '<a class="red-text" id="'+data.name+'" onClick="deleteTable(this.id)"><i class="fa fa-times">';
+   var editButton = '<a class="blue-text" id="'+tableKey+'" onClick="editAction(this.id)"><i class="fa fa-pencil"></i></a>';
+   var deleteButton = '<a class="red-text" id="'+tableKey+'" onClick="deleteTable(this.id)"><i class="fa fa-times">';
 
    // Create the table for viewTables.html
    var table = document.getElementById('tableTable');
@@ -49,24 +49,19 @@ function editAction(tableName){
 function deleteTable(tableName){
   // Popup confirmation
   console.log("Deleting Table: " + tableName);
-  if(confirm('Are you sure you wish to delete the table \"' + tableName + '\"?')){
-    var query = firebase.database().ref('Tables');
-    query.once("value")
-      .then(function(snapshot) {
-        // Search out the table to be removed.
-        snapshot.forEach(function(childSnapshot){
-          var table = childSnapshot.key;
-          var childData = childSnapshot.val();
-          var n = tableName.localeCompare(childData.name);
-          if (n == 0)
-            {
-              // Purge the table.
-              firebase.database().ref('Tables/' + table).remove();
-              location.reload(true);
-            }
 
-        });
-      });
-  }
+ var query = firebase.database().ref('Tables/' + tableName);
+query.once("value")
+   .then(function(snapshot) {
+      var childData = snapshot.val();
+      if(confirm("Are you wish to delete the table " + childData.name + "?")){
+         firebase.database().ref('Tables/' + tableName).remove();
+         location.reload(true);
+      }
+      else {
+         ;
+      }
+
+       });
 
 }

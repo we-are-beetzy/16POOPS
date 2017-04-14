@@ -42,7 +42,7 @@ function setForm() {
 
 // Pushes the changes to the database.
 function createTable(tableName, capacity, status, reservation) {
-  var newTable = {capacity: capacity, name: name, status: status, reservationName: reservation};
+  var newTable = {capacity: capacity, name: tableName, status: status, reservationName: reservation};
   var ref = firebase.database().ref();
   ref.child('Tables/' + tableKey).set(newTable);
   return;
