@@ -1,5 +1,6 @@
 var orders = firebase.database().ref().child('Orders'); //ref for Orders
 var orderList = orders.child('OrderList'); // ref for Order
+var tables = firebase.database().ref().child('Tables');
 
 // onclick of "Place Order" button, creates order and saves to Firebase
 function makeOrder(){
@@ -10,7 +11,7 @@ function makeOrder(){
     if(validateForm(tableNumber) === true){
         
         var menuItem = document.forms["createOrder"]["menuItem"].value;
-        
+    
         // Formatting for tableKey in database
         if(tableNumber > 9){
             tableNumber = "Table" + tableNumber;
@@ -57,6 +58,9 @@ function createOrder(menuItem, tableNumber){
     
     // pushes the newOrder to it's correct place on OrderList
     orders.child('OrderList/' + orderNumber).set(newOrder);
+    // add the order to the corresponding Table 
+    addToTable(tableNumber, orderNumber);
+    
     
     // creates snapshot at "Placed" directory and creates a new key based
     // on the number of children of Placed, and saves the orderkey at the key
@@ -77,4 +81,23 @@ function createOrder(menuItem, tableNumber){
             
         });
 
+}
+
+// Add an order to it's Table when creating an order
+function addToTable(tableNumber, orderNumber){
+    
+        var tableOrders = tables.child(tableNumber + '/Orders/');
+        tableOrders.once("value")
+          .then(function(snapshot) {
+            var numChild = snapshot.numChildren(); 
+            
+            // replace value at key 0 if empty
+            if(snapshot.child(0).val() == ""){
+                tables.child( tableNumber + '/Orders/' + 0).set(orderNumber.toString());
+            }
+            else{
+                tables.child(tableNumber + '/Orders/' + numChild).set(orderNumber.toString());
+            }
+            
+        });
 }
