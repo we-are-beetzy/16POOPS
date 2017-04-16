@@ -95,6 +95,7 @@ function saveChanges(){
     else{
         // remove from old Table, add to new
         deleteTable(orderNumber);
+        pause(250);
         addToTable(tableNumber, orderNumber);
 
     }
@@ -146,7 +147,7 @@ function updateStatus(orderStatus, orderNumber){
     });
     
     // pause for synchronicity
-    pause(500);
+    pause(250);
   
     // removes the orderNumber if it's present in the orderStatus directory
     // fixes the array at each orderStatus if necessary, will also leave
@@ -240,7 +241,6 @@ function deleteTableOrder(tableNumber, orderNumber){
     var deleteTableRef = tables.child(tableNumber).child('Orders'); //reference for the orderStatus
 
 
-    pause(500);
     // creates snapshot of the directory for the orderStatus
     deleteTableRef.once("value") // im having trouble getting inside of this snapshot, maybe create a new function or check reference
           .then(function(snapshot) {
@@ -249,7 +249,7 @@ function deleteTableOrder(tableNumber, orderNumber){
                     console.log("table ref is " + snapshot.key);
                 
 
-                pause(500);
+                pause(250);
 
                 // create array to store any values not removed from orderStatus directory
                 var reorderArray = new Array();
