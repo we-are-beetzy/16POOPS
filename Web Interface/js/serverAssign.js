@@ -69,5 +69,5 @@ query.once("value").then(function(snapshot) {
 	 var ref = firebase.database().ref('Users/Server/' + serverKey);
 	 ref.once("value").then(function(snapshot){
 		 childData = snapshot.val();
-	 }
+	 });
  }
