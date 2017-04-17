@@ -40,7 +40,7 @@ function loadMenu(){
         cell4.innerHTML = editButton + " " + deleteButton;
 	}
 	
-	
+}	
  
  function editAction(tables){
     console.log("edit " + table);
