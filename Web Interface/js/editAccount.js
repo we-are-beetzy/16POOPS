@@ -109,10 +109,10 @@ if(!(type.localeCompare("Host"))){
 	query.once("value")
 			.then(function(snapshot) {								
 				childData = snapshot.val();				
-				var fname = document.getElementById("firstName");
+				var fname = document.getElementById("name");
 				fname.value = childData.name;
 				var email = document.getElementById("email");
-				email.value = childDate.email;
+				email.value = childData.email;
 				var pword = document.getElementById("password");
 				pword.value = childData.password;
 				pword = document.getElementById("confirmPassword");
@@ -149,10 +149,10 @@ if(!(type.localeCompare("Kitchen"))){
 	query.once("value")
 			.then(function(snapshot) {								
 				childData = snapshot.val();				
-				var fname = document.getElementById("firstName");
+				var fname = document.getElementById("name");
 				fname.value = childData.name;
 				var email = document.getElementById("email");
-				email.value = childDate.email;
+				email.value = childData.email;
 				var pword = document.getElementById("password");
 				pword.value = childData.password;
 				pword = document.getElementById("confirmPassword");
@@ -168,10 +168,10 @@ if(!(type.localeCompare("Manager"))){
 	query.once("value")
 			.then(function(snapshot) {								
 				childData = snapshot.val();				
-				var fname = document.getElementById("firstName");
+				var fname = document.getElementById("name");
 				fname.value = childData.name;
 				var email = document.getElementById("email");
-				email.value = childDate.email;
+				email.value = childData.email;
 				var pword = document.getElementById("password");
 				pword.value = childData.password;
 				pword = document.getElementById("confirmPassword");
