@@ -12,52 +12,75 @@
 */
 
 // Create the references to each User Type.
-var manRef = firebase.database().ref("Users/Managers");
-var hostRef = firebase.database().ref("Users/Hosts");
+var manRef = firebase.database().ref("Users/Manager");
+var hostRef = firebase.database().ref("Users/Host");
 var kitchenRef = firebase.database().ref("Users/Kitchen");
-var serverRef = firebase.database().ref("Users/Servers");
+var serverRef = firebase.database().ref("Users/Server");
 var tableRef = firebase.database().ref("Table");
-    
-tableRef.once("value")
-    .then(function(snapshot) {
-    numTables = snapshot.numChildren();
-});
+var menuRef = firebase.database().ref("Menu/MenuItems");
 
-var table1stuff = tableRef.child("Table1").once("value", function(snapshot) {
-   var tablestuff = snapshot.val();
-    console.log("Table 1 Status: " + tablestuff);
-});
+var numManagers;
 
-// Store the number of employees within each reference group.
+menuRef.once("value")
+    .then(function(snapshot){
+        snapshot.forEach(function(snapshot) {
+            // Keep a running total of the sum of all items on the menu
+            var oldPrice = parseInt(localStorage.getItem("price"));
+            var price = parseInt(snapshot.child("price").val());
+            var newPrice = oldPrice + price;
+            localStorage.setItem("price", newPrice);
+
+            // Count the number of items in the MenuItems table.
+            var currItems = parseInt(localStorage.getItem("numItems"));
+            currItems++;
+            localStorage.setItem("numItems", currItems);
+        });
+    });
+
+// Grab the number of each type of employee for the employee distribution chart.
 manRef.once("value")
     .then(function(snapshot) {
-    numMan = snapshot.numChildren();
-});
+        numManagers = snapshot.numChildren();
+        localStorage.setItem("numManagers", numManagers);
+        console.log("Number of Managers: " + numManagers);
+    });
+
 
 hostRef.once("value")
     .then(function(snapshot) {
-    numHosts = snapshot.numChildren();
-});
+        numHosts = snapshot.numChildren();
+        localStorage.setItem("numHosts", numHosts);
+        console.log("Number of Hosts: " + numHosts);
+    });
 
 kitchenRef.once("value")
     .then(function(snapshot) {
-    numKitchen = snapshot.numChildren();
-});
+        numKitchen = snapshot.numChildren();
+        localStorage.setItem("numKitchen", numKitchen);
+        console.log("Number of Kitchen: " + numKitchen);
+    });
 
 serverRef.once("value")
     .then(function(snapshot) {
-    numServers = snapshot.numChildren();
-});
+        numServer = snapshot.numChildren();
+        localStorage.setItem("numServer", numServer);
+        console.log("Number of Servers: " + numServer);
+    });
 
 // Generate the Employee Distribution Pie Chart.
-function createPieChart() {
+function employeeDistribution() {
+
+    numManagers = localStorage.getItem("numManagers");
+    numHosts = localStorage.getItem("numHosts");
+    numKitchen = localStorage.getItem("numKitchen");
+    numServer = localStorage.getItem("numServer");
     // Make the chart responsive.
     var option = {
         responsive: true,
     };
     
         var data =[
-        {value: numMan,
+        {value: numManagers,
          color: "#F7464A",
          highlight: "#FF5A5E",
          label: "Managers"
@@ -73,7 +96,7 @@ function createPieChart() {
          highlight: "#FFC870",
          label: "Kitchen"
         },
-        {value: numServers,
+        {value: numServer,
          color: "#00E500",
          highlight: "#98fb98",
          label: "Servers"
@@ -83,6 +106,15 @@ function createPieChart() {
     // Get the context of the canvas element we want to select
     var ctx = document.getElementById("accounts").getContext('2d');
     var accountDistribution = new Chart(ctx).Doughnut(data, option); //'Pie' defines type of the chart.
+}
+
+function averagePrice() {
+
+    sumPrices = localStorage.getItem("price");
+    numItems = localStorage.getItem("numItems");
+
+    var averagePrice = parseInt(sumPrices)/parseInt(numItems);
+    document.querySelector('.averageSale').innerHTML = "$" + averagePrice.toFixed(2);
 }
 
 /*
@@ -162,17 +194,17 @@ function saleStats() {
 }
 
 
+function pause(milliseconds) {
+    var firstDate = new Date();
+    while ((new Date()) - firstDate <= milliseconds) { /* Do nothing */ }
+}
 
 
 
 
 
-
-
-
-
-
-
+console.log(localStorage.getItem("price"));
+console.log(localStorage.getItem("numItems"));
 
 
 
