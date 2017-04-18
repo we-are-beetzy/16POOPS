@@ -69,5 +69,40 @@ query.once("value").then(function(snapshot) {
 	 var ref = firebase.database().ref('Users/Server/' + serverKey);
 	 ref.once("value").then(function(snapshot){
 		 childData = snapshot.val();
-	 });
+		 console.log(childData);
+		  var tables = childData.assignedTables;
+		for(var i = 0; i < tables.length; i++)
+		{
+			if(tables[i] === 0){
+				tables[i] = y;
+				break;
+			}
+		}
+		
+		childData.assignedTables = tables;
+		ref.set(childData);
+		location.reload(true);
+	 }); 
+ }
+ 
+ function deleteTable(serverKey){
+	 var childData;
+	 var y = prompt("What table would you like to delete?");
+	 var ref = firebase.database().ref('Users/Server/' + serverKey);
+	 ref.once("value").then(function(snapshot){
+		 childData = snapshot.val();
+		 console.log(childData);
+		  var tables = childData.assignedTables;
+		for(var i = 0; i < tables.length; i++)
+		{
+			if(tables[i] === y){
+				tables[i] = 0;
+				break;
+			}
+		}
+		
+		childData.assignedTables = tables;
+		ref.set(childData);
+		location.reload(true);
+	 }); 
  }
