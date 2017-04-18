@@ -27,51 +27,66 @@
 
         <!--Header-->
         <div class="text-xs-center">
-            <h3><i class="fa fa-user"></i> Edit Account:</h3>
+            <h3><i class="fa fa-user"></i> Edit Account</h3>
             <hr class="mt-2 mb-2">
         </div>
-
+            
         <!--Body-->
-			
         <form>
+
 			<div class="row">
 				<div class="col-md-6">
 					<div class="md-form">
 						<i class="fa prefix"></i>
 						<input type="text" id="name" class="form-control validate">
+						
 					</div>
 				</div>
-
 			</div>
         </form>
-        	
-        <div class="text-xs-center">
-            <h1><p style="font-size:50%"><b> User Type:</b></p></h1>     
+        
+        <div class="md-form">
+            <i class="fa fa-envelope prefix"></i>
+            <input type="email" id="email" class="form-control validate">
+           
         </div>
-		
+
+        <div class="md-form">
+            <i class="fa fa-lock prefix"></i>
+            <input type="text" id="password" class="form-control">
+       
+        </div>
+
+        <div class="md-form">
+            <i class="fa prefix"></i>
+            <input type="text" id="confirmPassword" class="form-control">
+          
+        </div>
 		<fieldset class="form-group">
-			<input name="group1" type="radio" id="radio2" value="Host">
+			<input name="group1" type="radio" id="radio1" value="Host">
 			<label for="radio2">Host</label>
 		</fieldset>
 
 		<fieldset class="form-group">
-			<input name="group1" type="radio" id="radio3" value="Server">
+			<input name="group1" type="radio" id="radio2" value="Server">
 			<label for="radio3">Server</label>
 		</fieldset>
 		
 		<fieldset class="form-group">
-			<input name="group1" type="radio" id="radio4" value="Kitchen">
+			<input name="group1" type="radio" id="radio3" value="Kitchen">
 			<label for="radio3">Kitchen Staff</label>
 		</fieldset>
 		<fieldset class="form-group">
-			<input name="group1" type="radio" id="radio5" value="Manager">
+			<input name="group1" type="radio" id="radio4" value="Kitchen">
 			<label for="radio3">Manager</label>
 		</fieldset>
-   
+        
         <div class="text-center">
-            <button class="btn UCFgold accent-2" onclick="updateUser();">Save</button>
-			<button class="btn UCFgold accent-2" onclick="goBack();">Cancel</button>
+			<i style="visibility: hidden; font-size:36px;" class="fa fa-spinner fa-spin" id="spin"></i>
+            <button class="btn UCFgold accent-2" onclick="removeUser(); newAccount();">Edit Account</button>	
+			<button class="btn UCFgold accent-2" onclick="goBack();">Cancel</button>	
         </div>
+		
 
     </div>
 </div>
@@ -110,6 +125,7 @@
     </script>
 	<!-- JavaScript -->
 	<script language="javascript" src="js/editAccount.js"></script>
+	<script language="javascript" src="js/createAccount.js"></script>
 	<script language="javascript" src="js/HKNavBar.js"></script>
     <!-- JQuery -->
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
