@@ -70,7 +70,7 @@ function handleSignUp() {
 	}
 	else if(!(radioType.localeCompare("Server"))){
 		var ref = firebase.database().ref('Users/Server');
-		 tables = {0: 0, 1: 0, 2: 0, 3: 0};
+		 tables = {0: "", 1: "", 2: "", 3: ""};
 		 employeeInfo = {assignedTables: tables, name: userName, email: email, Password: password};
 	}
 	
