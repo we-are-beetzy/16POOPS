@@ -120,9 +120,6 @@ menuRef.once("value")
 function averagePrice() {
 
     sumPrices = localStorage.getItem("price");
-
-    //document.querySelector('.totalSale').innerHTML = ("$" + sumPrices.toFixed(2));
-
     numItems = localStorage.getItem("numItems");
 
     var averagePrice = parseInt(sumPrices)/parseInt(numItems);
