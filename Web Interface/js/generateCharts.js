@@ -15,6 +15,7 @@ localStorage.setItem("Available", 0);
 localStorage.setItem("Seated", 0);
 localStorage.setItem("Closing", 0);
 
+
 // Create the references to each User Type.
 var manRef = firebase.database().ref("Users/Manager");
 var hostRef = firebase.database().ref("Users/Host");
@@ -100,32 +101,47 @@ function employeeDistribution() {
 |                               Average Price                                           | 
 =========================================================================================
 */
-
+localStorage.setItem("price", 0);
+localStorage.setItem("numItems", 0);
+function averagePrice(){
 menuRef.once("value")
     .then(function(snapshot){
         snapshot.forEach(function(snapshot) {
             // Keep a running total of the sum of all items on the menu
-            var oldPrice = parseInt(localStorage.getItem("price"));
-            var price = parseInt(snapshot.child("price").val());
-            var newPrice = oldPrice + price;
-            localStorage.setItem("price", newPrice);
-
-            // Count the number of items in the MenuItems table.
-            var currItems = parseInt(localStorage.getItem("numItems"));
-            currItems++;
-            localStorage.setItem("numItems", currItems);
+            var oldPrice = parseFloat(localStorage.getItem("price"));
+            var price = parseFloat(snapshot.child("price").val());
+			var newPrice = oldPrice + price;
+            localStorage.setItem("price", newPrice);			
+			// Count the number of items in the MenuItems table.
+            var currItems = localStorage.getItem("numItems");
+			if(price !== 0){
+				currItems++;
+				localStorage.setItem("numItems", currItems);
+			}
+ 
         });
-    });
-
+	
+	var sumPrices = localStorage.getItem("price");
+    var numItems = localStorage.getItem("numItems");
+    var averagePrice = sumPrices/numItems;
+	console.log(sumPrices);
+	console.log(numItems);
+    document.querySelector('.averageSale').innerHTML = "$" + averagePrice.toFixed(2);
+   
+   });
+}
+/*
 function averagePrice() {
 
-    sumPrices = localStorage.getItem("price");
-    numItems = localStorage.getItem("numItems");
-
+    var sumPrices = localStorage.getItem("price");
+    var numItems = localStorage.getItem("numItems");
+	console.log(sumPrices);
+	console.log(numItems);
     var averagePrice = parseInt(sumPrices)/parseInt(numItems);
+	console.log(averagePrice);
     document.querySelector('.averageSale').innerHTML = "$" + averagePrice.toFixed(2);
 }
-
+*/
 /*
 =========================================================================================
 |                               Table status                                            | 
