@@ -11,38 +11,28 @@
 * Begin Employee Distribution
 */
 
+localStorage.setItem("Available", 0);
+localStorage.setItem("Seated", 0);
+localStorage.setItem("Closing", 0);
+
 // Create the references to each User Type.
 var manRef = firebase.database().ref("Users/Manager");
 var hostRef = firebase.database().ref("Users/Host");
 var kitchenRef = firebase.database().ref("Users/Kitchen");
 var serverRef = firebase.database().ref("Users/Server");
-var tableRef = firebase.database().ref("Table");
 var menuRef = firebase.database().ref("Menu/MenuItems");
 
-var numManagers;
-
-menuRef.once("value")
-    .then(function(snapshot){
-        snapshot.forEach(function(snapshot) {
-            // Keep a running total of the sum of all items on the menu
-            var oldPrice = parseInt(localStorage.getItem("price"));
-            var price = parseInt(snapshot.child("price").val());
-            var newPrice = oldPrice + price;
-            localStorage.setItem("price", newPrice);
-
-            // Count the number of items in the MenuItems table.
-            var currItems = parseInt(localStorage.getItem("numItems"));
-            currItems++;
-            localStorage.setItem("numItems", currItems);
-        });
-    });
+/*
+=========================================================================================
+|                               Employee Distribution                                   | 
+=========================================================================================
+*/
 
 // Grab the number of each type of employee for the employee distribution chart.
 manRef.once("value")
     .then(function(snapshot) {
         numManagers = snapshot.numChildren();
         localStorage.setItem("numManagers", numManagers);
-        console.log("Number of Managers: " + numManagers);
     });
 
 
@@ -50,21 +40,18 @@ hostRef.once("value")
     .then(function(snapshot) {
         numHosts = snapshot.numChildren();
         localStorage.setItem("numHosts", numHosts);
-        console.log("Number of Hosts: " + numHosts);
     });
 
 kitchenRef.once("value")
     .then(function(snapshot) {
         numKitchen = snapshot.numChildren();
         localStorage.setItem("numKitchen", numKitchen);
-        console.log("Number of Kitchen: " + numKitchen);
     });
 
 serverRef.once("value")
     .then(function(snapshot) {
         numServer = snapshot.numChildren();
         localStorage.setItem("numServer", numServer);
-        console.log("Number of Servers: " + numServer);
     });
 
 // Generate the Employee Distribution Pie Chart.
@@ -108,9 +95,34 @@ function employeeDistribution() {
     var accountDistribution = new Chart(ctx).Doughnut(data, option); //'Pie' defines type of the chart.
 }
 
+/*
+=========================================================================================
+|                               Average Price                                           | 
+=========================================================================================
+*/
+
+menuRef.once("value")
+    .then(function(snapshot){
+        snapshot.forEach(function(snapshot) {
+            // Keep a running total of the sum of all items on the menu
+            var oldPrice = parseInt(localStorage.getItem("price"));
+            var price = parseInt(snapshot.child("price").val());
+            var newPrice = oldPrice + price;
+            localStorage.setItem("price", newPrice);
+
+            // Count the number of items in the MenuItems table.
+            var currItems = parseInt(localStorage.getItem("numItems"));
+            currItems++;
+            localStorage.setItem("numItems", currItems);
+        });
+    });
+
 function averagePrice() {
 
     sumPrices = localStorage.getItem("price");
+
+    //document.querySelector('.totalSale').innerHTML = ("$" + sumPrices.toFixed(2));
+
     numItems = localStorage.getItem("numItems");
 
     var averagePrice = parseInt(sumPrices)/parseInt(numItems);
@@ -118,31 +130,60 @@ function averagePrice() {
 }
 
 /*
-* Begin Table Status
+=========================================================================================
+|                               Table status                                            | 
+=========================================================================================
 */
 
+// Create the table reference and get the different table statuses.
+var tableRef = firebase.database().ref("Tables");
 
-// Create the table reference and get the number of tables
-function tableStats() {
+var numAvail = 0;
+var numSeated = 0;
+var numClose = 0;
+
+function testTable() {
+
+tableRef.once("value")
+    .then(function(snapshot) {
+        snapshot.forEach(function(snapshot) {
+            
+            var status = snapshot.child("status").val();
+            if (status == "Available"){
+                numAvail++;
+            }
+            else if (status == "Closing"){
+                numClose++;
+            }
+            else if (status == "Seated"){
+                numSeated++;
+            }
+
+        });
+
+    console.log("Available Tables: " + numAvail);
+    console.log("Seated Tables: " + numSeated);
+    console.log("Closing Tables: " + numClose);
+
    // Make the chart responsive.
     var option = {
         responsive: true,
     };
     
         var data =[
-        {value: 4,
+        {value: numSeated,
          color: "#F7464A",
          highlight: "#FF5A5E",
          label: "Seated"
         },
         
-        {value: 2,
+        {value: numClose,
          color: "#FDB45C",
          highlight: "#FFC870",
          label: "Closing"
         },
         
-        {value: 4,
+        {value: numAvail,
          color: "#00E500",
          highlight: "#98fb98",
          label: "Available"
@@ -152,65 +193,109 @@ function tableStats() {
     // Get the context of the canvas element we want to select
     var ctx = document.getElementById("table").getContext('2d');
     var tableDistribution = new Chart(ctx).Pie(data, option); //'Pie' defines type of the chart.
-    
+
+    });
 }
 
+/*
+=========================================================================================
+|                               Order Status                                            | 
+=========================================================================================
+*/
 
-function saleStats() {
+var readyRef = firebase.database().ref("Orders/Ready");
+var inProgRef = firebase.database().ref("Orders/InProgress");
+var placedRef = firebase.database().ref("Orders/Placed");
+var delivRef = firebase.database().ref("Orders/Delivered");
+
+
+var numReady = 0;
+var numInProg = 0;
+var numPlaced = 0;
+var numDeliv = 0;
+
+readyRef.once("value")
+    .then(function(snapshot) {
+        numReady = snapshot.numChildren();
+        localStorage.setItem("numReady", numReady);
+    });
+
+inProgRef.once("value")
+    .then(function(snapshot) {
+        numInProg = snapshot.numChildren();
+        localStorage.setItem("numInProg", numInProg);
+    });
+
+placedRef.once("value")
+    .then(function(snapshot) {
+        numPlaced = snapshot.numChildren();
+        localStorage.setItem("numPlaced", numPlaced);
+    });
+
+delivRef.once("value")
+    .then(function(snapshot) {
+        numDeliv = snapshot.numChildren();
+        localStorage.setItem("numDeliv", numDeliv);
+    });
+
+// Generate the Order Status Distribution Pie Chart.
+function orderDistribution() {
+
+var numReady = 0;
+var numInProg = 0;
+var numPlaced = 0;
+var numDeliv = 0;
+
+    numReady = localStorage.getItem("numReady");
+    numInProg = localStorage.getItem("numInProg");
+    numPlaced = localStorage.getItem("numPlaced");
+    numDeliv = localStorage.getItem("numDeliv");
+
     // Make the chart responsive.
     var option = {
         responsive: true,
     };
     
-    var data = {
-        labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        datasets: [
-            {
-                label: "This Week",
-                fillColor: "rgba(220,220,220,0.2)",
-                strokeColor: "rgba(220,220,220,1)",
-                pointColor: "rgba(220,220,220,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,220,1)",
-                data: [65, 59, 80, 81, 56, 55, 40]
-            },
-            {
-                label: "Last Week",
-                fillColor: "rgba(151,187,205,0.2)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(151,187,205,1)",
-                data: [28, 48, 40, 19, 86, 27, 90]
-            }
-        ]
-    };
+        var data =[
+        {value: numReady,
+         color: "#F7464A",
+         highlight: "#FF5A5E",
+         label: "Ready"
+        },
+        
+        {value: numInProg,
+         color: "#46BFBD",
+         highlight: "#5AD3D1",
+         label: "In Progress"
+        },
+        {value: numPlaced,
+         color: "#FDB45C",
+         highlight: "#FFC870",
+         label: "Placed"
+        },
+        {value: numDeliv,
+         color: "#00E500",
+         highlight: "#98fb98",
+         label: "Delivered"
+        }
+    ]
 
-    var ctx = document.getElementById("sales").getContext('2d');
-    var salesDistribution = new Chart(ctx).Line(data, option);
 
+var data = {
+    labels: ["Placed", "In Progress", "Ready", "Delivered"],
+    datasets: [
+        {
+            label: "My First dataset",
+            fillColor: "#FFC904",
+            strokeColor: "rgba(220,220,220,0.8)",
+            highlightFill: "#000000",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: [numPlaced, numInProg, numReady, numDeliv]
+        }
+    ]
+};
+    
+    // Get the context of the canvas element we want to select
+    var ctx = document.getElementById("orders").getContext('2d');
+    var accountDistribution = new Chart(ctx).Bar(data, option); //'Pie' defines type of the chart.
 }
-
-
-function pause(milliseconds) {
-    var firstDate = new Date();
-    while ((new Date()) - firstDate <= milliseconds) { /* Do nothing */ }
-}
-
-
-
-
-
-console.log(localStorage.getItem("price"));
-console.log(localStorage.getItem("numItems"));
-
-
-
-
-
-
-
-
-
