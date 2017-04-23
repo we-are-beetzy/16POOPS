@@ -18,7 +18,7 @@
 
 </head>
 
-<body onload="loadNavBar();">
+<body onload="loadNavBar();employeeDistribution();averagePrice();testTable();orderDistribution();">
 
 	<nav class="navbar navbar-toggleable-md navbar-light amber accent-2 bg-faded" id="HKnavBar"></nav>
 
@@ -28,12 +28,8 @@
     <div class="row">
         <div class="col">
             <div class="card">
-                <center><h4 class="card-title">Average Meal Cost</h4></center>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <h4 class="card-titles">Average Wait Time</h4>
+                <center><h4 class="card-titles">Average Menu Item Cost </h4></center>
+                <center><h5><div class="averageSale"></div></h5></center>
             </div>
         </div>
     </div>
@@ -57,15 +53,12 @@
             <h5></h5>
 
             <div class="card">
-                    <h4><center>Current Sales</center></h4>
-                    <canvas id="sales"></canvas>
+                   <h4><center>Orders</center></h4>
+                    <canvas id="orders"></canvas>
             </div>
         </div>
     </div>
     <center>
-        <button class="btn UCFgold" onclick="createPieChart();">Generate Employee Stats</button>
-        <button class="btn UCFgold" onclick="tableStats();">Generate Table Status</button>
-        <button class="btn UCFgold" onclick="saleStats();">Generate Sales Status</button>
 
     </center>
 </div>
@@ -78,11 +71,11 @@
     <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase.js"></script>
     <script>
       // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyD2rkT1bru0R6Udda0nXfhirFWvSbq8n3A",
-        authDomain: "helps-kitchen-alpha.firebaseapp.com",
-        databaseURL: "https://helps-kitchen-alpha.firebaseio.com",
-        storageBucket: "helps-kitchen-alpha.appspot.com",
+     var config = {
+        apiKey: "AIzaSyD5D23YKyps_69HcPj1Ir7SnaP5I2ondT0",
+        authDomain: "test-c1f82.firebaseapp.com",
+        databaseURL: "test-c1f82.firebaseio.com",
+        storageBucket: "gs://test-c1f82.appspot.com",
         messagingSenderId: "1078102454253"
       };
       firebase.initializeApp(config);

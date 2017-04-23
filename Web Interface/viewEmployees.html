@@ -14,11 +14,13 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
-
+	<link rel="icon" type="image/png" href="./img/HK180.png">
 </head>
 
-<body onload="loadNavBar(); setForm();">
+<body onload="loadNavBar();">
+	
 	<nav class="navbar navbar-toggleable-md navbar-light amber accent-2 bg-faded" id="HKnavBar"></nav>
+
 
 <!--Form without header-->
 <div class="container top-buffer">
@@ -27,67 +29,33 @@
 
         <!--Header-->
         <div class="text-xs-center">
-            <h3><i class="fa fa-user"></i> Edit Account</h3>
+            <h3><i class="fa fa-user"></i> View Employees:</h3>
             <hr class="mt-2 mb-2">
         </div>
-            
-        <!--Body-->
-        <form>
 
-			<div class="row">
-				<div class="col-md-6">
-					<div class="md-form">
-						<i class="fa prefix"></i>
-						<input type="text" id="name" class="form-control validate">
-						
-					</div>
-				</div>
-			</div>
-        </form>
-        
-        <div class="md-form">
-            <i class="fa fa-envelope prefix"></i>
-            <input type="email" id="email" class="form-control validate">
-           
-        </div>
-
-        <div class="md-form">
-            <i class="fa fa-lock prefix"></i>
-            <input type="password" id="password" class="form-control">
-       
-        </div>
-
-        <div class="md-form">
-            <i class="fa prefix"></i>
-            <input type="password" id="confirmPassword" class="form-control">
-          
-        </div>
 		<fieldset class="form-group">
 			<input name="group1" type="radio" id="radio1" value="Host">
-			<label for="radio2">Host</label>
+			<label for="radio2">Hosts</label>
 		</fieldset>
 
 		<fieldset class="form-group">
 			<input name="group1" type="radio" id="radio2" value="Server">
-			<label for="radio3">Server</label>
+			<label for="radio3">Servers</label>
 		</fieldset>
 		
 		<fieldset class="form-group">
 			<input name="group1" type="radio" id="radio3" value="Kitchen">
 			<label for="radio3">Kitchen Staff</label>
-		</fieldset>
-		<fieldset class="form-group">
-			<input name="group1" type="radio" id="radio4" value="Kitchen">
-			<label for="radio3">Manager</label>
-		</fieldset>
-        
-        <div class="text-center">
-			<i style="visibility: hidden; font-size:36px;" class="fa fa-spinner fa-spin" id="spin"></i>
-            <button class="btn UCFgold accent-2" onclick="removeUser(); newAccount();">Edit Account</button>	
-			<button class="btn UCFgold accent-2" onclick="goBack();">Cancel</button>	
-        </div>
+		</fieldset>	
 		
-
+		<fieldset class="form-group">
+			<input name="group1" type="radio" id="radio4" value="Manager">
+			<label for="radio3">Manager</label>
+		</fieldset>	
+		<button class="btn UCFgold accent-2" onclick="loadEmployees();">Show Employees</button>
+       <table class="table" id="empTable">
+			
+		</table>
     </div>
 </div>
 </div>
@@ -125,7 +93,6 @@
     </script>
 	<!-- JavaScript -->
 	<script language="javascript" src="js/editAccount.js"></script>
-	<script language="javascript" src="js/createAccount.js"></script>
 	<script language="javascript" src="js/HKNavBar.js"></script>
     <!-- JQuery -->
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
