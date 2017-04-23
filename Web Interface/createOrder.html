@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Help's Kitchen</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+	<link rel="icon" type="image/png" href="./img/HK180.png">
+</head>
+
+<body onload="loadNavBar();">
+
+    <nav class="navbar navbar-toggleable-md navbar-light amber accent-2 bg-faded" id="HKnavBar"></nav>
+
+
+	<!--Form without header-->
+	<div class="container-fluid top-buffer">
+
+	
+		<li>
+			<div class="card col-md-12">
+				<div class="card-block">
+				
+					<div class="text-xs-center">
+						<h3><i class="fa fa-user"></i> New Order:</h3>
+						<hr class="mt-2 mb-2">
+					</div>
+                    
+ 
+					   <form name="createOrder">
+                           <div class="row justify-content-md-center">
+							<div class="col-md-2">
+								<div class="md-form">
+									<i class="fa prefix"></i>
+									<input type="text" id="tableNumber" class="form-control validate">
+									<label for="tableNumber">Table No.</label>
+								</div>
+                               </div>
+                                
+                            <div class="col-md-2"></div>
+                       
+                               
+                                <div class="col-md-4">
+                                   <div class="form-group">
+                                      <label for="menuItem">Select Menu Item:</label>
+                                      <select class="form-control" id="menuItem">
+                                        <optgroup label="Appetizers">
+                                            <option value="Cheddar Bites">Cheddar Bites</option>
+                                            <option value="Chips and Salsa">Chips and Salsa</option>
+                                            <option value="Fried Pickles">Fried Pickles</option>
+                                            <option value="Onion Rings">Onion Rings</option>
+                                            <option value="Wings">Wings</option> 
+                                        </optgroup>
+                                        <optgroup label="Dessert">
+                                            <option value="Apple Pie">Apple Pie</option>
+                                            <option value="Cheese Cake">Cheese Cake</option>
+                                            <option value="Flan">Flan</option>
+                                            <option value="Ice Cream">Ice Cream</option>
+                                            <option value="Lava Cake">Lava Cake</option> 
+                                        </optgroup>
+                                        <optgroup label="Entree">
+                                            <option value="Cajun Shrimp Pasta">Cajun Shrimp Pasta</option>
+                                            <option value="Chicken Tenders">Chicken Tenders</option>
+                                            <option value="Classic Bacon Burger">Classic Bacon Burger</option>
+                                            <option value="Grilled Chicken Sandwich">Grilled Chicken Sandwich</option>
+                                            <option value="Ribeye Steak">Ribeye Steak</option> 
+                                        </optgroup>
+                                        <optgroup label="Sides">
+                                            <option value="Broccoli">Broccoli</option>
+                                            <option value="Fries">Fries</option>
+                                            <option value="Mashed Potatoes">Mashed Potatoes</option>
+                                            <option value="Rice">Rice</option>
+                                            <option value="Sweet Corn">Sweet Corn</option> 
+                                        </optgroup>
+                                        <optgroup label="Alcohol">
+                                            <option value="Beer">Beer</option>
+                                            <option value="Whiskey">Whiskey</option>
+                                            <option value="Wine">Wine</option>
+                                        </optgroup>
+                                         <optgroup label="Soft Drinks">
+                                            <option value="Cola">Cola</option>
+                                            <option value="Ginger Ale">Ginger Ale</option>
+                                            <option value="Root Beer">Root Beer</option>
+                                            <option value="Water">Water</option> 
+                                        </optgroup>
+                                      </select>
+                                    </div>
+                               </div>
+
+                               
+                           </div>
+                           
+
+
+						
+					</form>
+					
+
+				</div>
+                    
+                    
+                    
+                <div class"row-md">
+                
+                    <div class="text-center">
+
+                        <button type="submit" class="btn amber accent-2" onclick="makeOrder();" >Place Order</button>
+	
+				    </div>
+                    
+                </div>
+
+
+			</div>
+		</li>
+		
+		<div class="modal-footer">
+			<div class="options">
+				<p><a href="viewOrders.html" onclick="">Return to Orders</a></p>
+			</div>
+		</div>
+		
+		
+	</div>
+	
+
+	
+	
+
+<!--/Form without header-->
+
+    
+    <!-- /Start your project here-->
+    
+    <!-- SCRIPTS -->
+	<!-- FireBase -->	
+<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD5D23YKyps_69HcPj1Ir7SnaP5I2ondT0",
+    authDomain: "test-c1f82.firebaseapp.com",
+    databaseURL: "https://test-c1f82.firebaseio.com",
+    storageBucket: "test-c1f82.appspot.com",
+    messagingSenderId: "92078539964"
+  };
+  firebase.initializeApp(config);
+</script>
+	<!-- JavaScript -->
+	<script language="javascript" src="js/createOrder.js"></script>
+	<script language="javascript" src="js/HKNavBar.js"></script>
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/tether.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+</body>
+
+</html>

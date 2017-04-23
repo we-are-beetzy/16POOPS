@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Help's Kitchen</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+	<link rel="icon" type="image/png" href="./img/HK180.png">
+</head>
+
+<body onload="loadNavBar();">
+
+	<nav class="navbar navbar-toggleable-md navbar-light amber accent-2 bg-faded" id="HKnavBar"></nav>
+
+	<!--Form without header-->
+	<div class="container-fluid top-buffer">
+
+
+		<li>
+			<div class="card col-md-12">
+				<div class="card-block">
+
+					<div class="text-xs-center">
+						<h3><i class="fa fa-user"></i> New Table:</h3>
+						<hr class="mt-2 mb-2">
+					</div>
+
+					<form name="createTable">
+						<div class="row justify-content-md-center">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label id="tableStatus">Status:</label>
+									<select class="form-control" id="status">
+                                            <option value="Available">Available</option>
+                                            <option value="Reserved">Reserved</option>
+                                            <option value="Closing">Closing</option>
+									</select>
+							</div>
+						</div>
+                        </div>
+                            <div class="row justify-content-md-center">
+							<div class="col-md-2">
+								<div class="md-form">
+									<i class="fa prefix"></i>
+									<input type="text" id="tableName" class="form-control validate">
+									<label for="name">Table Name</label>
+								</div>
+							</div>
+
+							<div class="col-md-2">
+								<div class="md-form">
+									<i class="fa prefix"></i>
+									<input type="text" id="capacity" class="form-control validate">
+									<label for="capacity">Seating Capacity</label>
+								</div>
+							</div>
+
+							<div class="col-md-2">
+								<div class="md-form">
+									<i class="fa prefix"></i>
+									<input type="text" id="reservation" class="form-control validate">
+									<label for="reservation">Reserved for</label>
+								</div>
+							</div>
+
+                            </div>
+
+						<div class="text-center">
+
+							<button type="submit" class="btn amber accent-2" onclick="confirmTable();">Create Table</button>
+
+
+						</div>
+
+					</form>
+
+
+				</div>
+
+
+			</div>
+		</li>
+
+		<div class="modal-footer">
+			<div class="options">
+				<p><a href="./viewTables.html">Return to Tables</a></p>
+			</div>
+		</div>
+
+
+	</div>
+
+
+
+
+
+<!--/Form without header-->
+
+
+    <!-- /Start your project here-->
+
+    <!-- SCRIPTS -->
+    <script language="javascript" src="js/HKNavBar.js"></script>
+	<!-- FireBase -->
+	<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+        apiKey: "AIzaSyD5D23YKyps_69HcPj1Ir7SnaP5I2ondT0",
+        authDomain: "test-c1f82.firebaseapp.com",
+        databaseURL: "https://test-c1f82.firebaseio.com",
+        storageBucket: "test-c1f82.appspot.com",
+        messagingSenderId: "92078539964"
+      };
+	  firebase.initializeApp(config);
+	</script>
+	<!-- JavaScript -->
+	<script language="javascript" src="js/createTable.js"></script>
+	<script language="javascript" src="js/createMenuItem.js"></script>
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/tether.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+</body>
+
+</html>

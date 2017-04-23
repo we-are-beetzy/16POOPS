@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Help's Kitchen</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+	<link rel="icon" type="image/png" href="./img/HK180.png">
+
+</head>
+
+<body onload ="loadReservations()">
+
+	<nav class="navbar navbar-toggleable-md navbar-light amber accent-2 bg-faded">
+	  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+	  <a class="navbar-brand" href="#"><b>Help's Kitchen</b></a>
+	  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link" href="index.html">Home <span class="sr-only"></span></a>
+			</li>
+			
+			<li class="nav item">
+				<a class="nav-link" href="createAccount.html">Create Account <span class="sr-only"></span></a>
+			</li>
+
+			<li class="nav item">
+				<a class="nav-link" href="editAccount.html">Edit Account <span class="sr-only"></span></a>
+			</li>
+			
+			<li class="nav item">
+				<a class="nav-link" href="#">Kitchen & Food Status <span class="sr-only"></span></a>
+			</li>
+			
+			<li class="nav item">
+				<a class="nav-link" href="#">Table View <span class="sr-only"></span></a>
+			</li>
+			
+			<li class="nav item">
+				<a class="nav-link active" href="manageReservations.html">Manage Reservations <span class="sr-only">(current)</span></a>
+			</li>
+		
+		</ul>
+	  </div>
+	</nav>
+
+
+
+	<!--Form without header-->
+	<div class="container-fluid top-buffer">
+	
+		<li>
+			<div class="card col-md-12">
+				<div class="card-block">
+
+					<!--Header-->
+					<div class="text-xs-center">
+						<h3><i class="fa"></i> Current Reservations:</h3>
+					</div>
+
+					<!--Body-->
+					<!---Use JavaScript to select from table then use buttons at bottom
+							to either edit or delete--->
+					<table class="table" id="resTable">
+						<tr>
+							<th>Date:</th>
+							<th>Party Name:</th>
+							<th>Number in Party:</th>
+							<th>Time:</th>
+						</tr>
+					</table>
+	
+					<div class="text-xs">
+						<a href="createReservation.html">
+							<button class="btn UCFgold accent-2">Create</button>						
+						</a>
+						<button class="btn UCFgold accent-2" onclick="editReservation();">Edit</button>
+						<button class="btn UCFgold accent-2" onclick="deleteReservation();">Delete</button>
+					</div>
+					
+				</div>
+
+			</div>
+		</li>
+		
+		<!---want to make this two columns side by side, doesn't make sense to make this vertical--->
+		<li>
+			<div class="card col-md-12">
+				<div class="card-block">
+
+					<!--Header-->
+					<div class="text-xs-center">
+						<h3><i class="fa"></i> Reservations per Hour:</h3>
+					</div>
+
+					<img src="http://www.conceptdraw.com/How-To-Guide/picture/Vertical-bar-chart-Global-competitiveness-index-infrastructure-score.png"
+							height ="400" width="300"></img>
+
+				</div>
+				
+				<!--Footer-->
+
+			</div>
+		</li>
+		
+		
+	</div>
+	
+
+
+<!--/Form without header-->
+
+    
+    <!-- /Start your project here-->
+    
+    <!-- SCRIPTS -->
+	<!-- Firebase -->
+	<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD5D23YKyps_69HcPj1Ir7SnaP5I2ondT0",
+    authDomain: "test-c1f82.firebaseapp.com",
+    databaseURL: "https://test-c1f82.firebaseio.com",
+    storageBucket: "test-c1f82.appspot.com",
+    messagingSenderId: "92078539964"
+  };
+  firebase.initializeApp(config);
+</script>
+</script>
+	
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/tether.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+	<script language="javascript" src="js/manageReservations.js"></script>
+</body>
+
+</html>

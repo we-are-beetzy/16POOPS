@@ -36,41 +36,43 @@ query.once("value").then(function(snapshot) {
 	cell1.innerHTML = data.name;
 	var avail = "Available";
 	var x = tables[0];
-	//x = x.toString();
+
     cell1.innerHTML = data.name;
 	if(x !== ""){
 		cell2.innerHTML = x;
 	}
 	else{
-		cell2.innerHTML = "Available";
+
+		cell2.innerHTML = avail;
 	}
     
 	x = tables[1];
-	//x = x.toString();
+
 	if(x !== ""){
 		cell3.innerHTML = x;
 	}
 	else{
-		cell3.innerHTML = "Available";
+
+		cell3.innerHTML = avail;
 	}
     
 	x = tables[2];
-	//x = x.toString();
+
 	if(x !== ""){
 		cell4.innerHTML = x;
 	}
 	else{
-		cell4.innerHTML = "Available";
+
+		cell4.innerHTML = avail;
 	}
 	
 	x = tables[3];
-	//x = x.toString();
-	if(x === ""){
-		cell5.innerHTML = avail;
+	if(x !== ""){
+		cell5.innerHTML = x;
 	}
 	else{
-		//cell5.innerHTML = avail;
-		//console.log(avail);
+		cell5.innerHTML = avail;
+
 	}
 	
 	cell6.innerHTML = editButton + " " + deleteButton;
@@ -86,7 +88,9 @@ query.once("value").then(function(snapshot) {
 		  var tables = childData.assignedTables;
 		for(var i = 0; i < tables.length; i++)
 		{
-			if(tables[i] === 0){
+
+			if(tables[i] === ""){
+
 				tables[i] = y;
 				break;
 			}
@@ -109,7 +113,9 @@ query.once("value").then(function(snapshot) {
 		for(var i = 0; i < tables.length; i++)
 		{
 			if(tables[i] === y){
-				tables[i] = 0;
+
+				tables[i] = "";
+
 				break;
 			}
 		}

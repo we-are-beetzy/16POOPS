@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Help's Kitchen</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+	<link rel="icon" type="image/png" href="./img/HK180.png">
+</head>
+
+<body onload="loadNavBar();">
+	
+	<nav class="navbar navbar-toggleable-md navbar-light amber accent-2 bg-faded" id="HKnavBar"></nav>
+
+
+<!--Form without header-->
+<div class="container top-buffer">
+<div class="card">
+    <div class="card-block">
+
+        <!--Header-->
+        <div class="text-xs-center">
+            <h3><i class="fa fa-user"></i> View Employees:</h3>
+            <hr class="mt-2 mb-2">
+        </div>
+
+		<fieldset class="form-group">
+			<input name="group1" type="radio" id="radio1" value="Host">
+			<label for="radio2">Hosts</label>
+		</fieldset>
+
+		<fieldset class="form-group">
+			<input name="group1" type="radio" id="radio2" value="Server">
+			<label for="radio3">Servers</label>
+		</fieldset>
+		
+		<fieldset class="form-group">
+			<input name="group1" type="radio" id="radio3" value="Kitchen">
+			<label for="radio3">Kitchen Staff</label>
+		</fieldset>	
+		
+		<fieldset class="form-group">
+			<input name="group1" type="radio" id="radio4" value="Manager">
+			<label for="radio3">Manager</label>
+		</fieldset>	
+		<button class="btn UCFgold accent-2" onclick="loadEmployees();">Show Employees</button>
+       <table class="table" id="empTable">
+			
+		</table>
+    </div>
+</div>
+</div>
+<!--Form without header-->
+
+    
+    <!-- /Start your project here-->
+    
+    <!-- Import Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyD2rkT1bru0R6Udda0nXfhirFWvSbq8n3A",
+            authDomain: "helps-kitchen-alpha.firebaseapp.com",
+            databaseURL: "https://helps-kitchen-alpha.firebaseio.com",
+            storageBucket: "helps-kitchen-alpha.appspot.com",
+            messagingSenderId: "1078102454253"
+          };
+          firebase.initializeApp(config);
+        </script>
+
+    <!-- SCRIPTS -->
+    <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyD5D23YKyps_69HcPj1Ir7SnaP5I2ondT0",
+        authDomain: "test-c1f82.firebaseapp.com",
+        databaseURL: "https://test-c1f82.firebaseio.com",
+        storageBucket: "test-c1f82.appspot.com",
+        messagingSenderId: "92078539964"
+      };
+      firebase.initializeApp(config);
+    </script>
+	<!-- JavaScript -->
+	<script language="javascript" src="js/editAccount.js"></script>
+	<script language="javascript" src="js/HKNavBar.js"></script>
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/tether.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- Login form handling JavaScript -->
+    <script type="text/javascript" src="js/authenticateUser.js"></script>
+</body>
+
+</html>
+

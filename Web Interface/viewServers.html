@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Help's Kitchen</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+	<link rel="icon" type="image/png" href="./img/HK180.png">
+
+</head>
+
+<body onload="loadNavBar(); loadServers();">
+
+
+	<nav class="navbar navbar-toggleable-md navbar-light amber accent-2 bg-faded" id="HKnavBar"></nav>
+
+
+	<!--Form without header-->
+	<div class="container-fluid top-buffer">
+	
+		<li>
+			<div class="card col-md-12">
+				<div class="card-block">
+
+					<!--Header-->
+					<div class="text-xs-center">
+						<h3><i class="fa"></i> Severs:</h3>
+					</div>
+
+					<!--Body-->
+					<!---Use JavaScript to select from table then use buttons at bottom
+							to either edit or delete--->
+					<table class="table" id = "serverTable">
+						<tr>
+							<th>Name:</th>
+							<th>Assigned:</th>
+							<th>Assigned:</th>
+							<th>Assigned:</th>
+							<th>Assigned:</th>
+							<th>Actions:</th>
+						</tr>
+					</table>
+					
+				</div>
+
+			</div>
+		</li>
+	</div>
+	
+
+
+<!--/Form without header-->
+
+    
+    <!-- /Start your project here-->
+    
+    <!-- SCRIPTS -->
+	<!-- Firebase -->
+	<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+        apiKey: "AIzaSyD5D23YKyps_69HcPj1Ir7SnaP5I2ondT0",
+        authDomain: "test-c1f82.firebaseapp.com",
+        databaseURL: "https://test-c1f82.firebaseio.com",
+        storageBucket: "test-c1f82.appspot.com",
+        messagingSenderId: "92078539964"
+      };
+	  firebase.initializeApp(config);
+	</script>
+	<!-- JavaScript -->
+	<script language="javascript" src="js/viewServers.js"></script>
+	<script language="javascript" src="js/serverAssign.js"></script>
+	<script language="javascript" src="js/HKNavBar.js"></script>
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/tether.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+</body>
+
+</html>

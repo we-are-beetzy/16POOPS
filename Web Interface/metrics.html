@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Help's Kitchen</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+	<link rel="icon" type="image/png" href="./img/HK180.png">
+
+</head>
+
+<body onload="loadNavBar();employeeDistribution();averagePrice();testTable();orderDistribution();">
+
+	<nav class="navbar navbar-toggleable-md navbar-light amber accent-2 bg-faded" id="HKnavBar"></nav>
+
+
+<!--Form without header-->
+<div class="container top-buffer">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <center><h4 class="card-titles">Average Menu Item Cost </h4></center>
+                <center><h5><div class="averageSale"></div></h5></center>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                    <h4><center>Employee Distribution</center></h4>
+                    <canvas id="accounts"></canvas>
+            </div>
+        </div>
+        
+        <div class="col">
+            <div class="card">
+                    <h4><center>Table Status</center></h4>
+                    <canvas id="table"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h5></h5>
+
+            <div class="card">
+                   <h4><center>Orders</center></h4>
+                    <canvas id="orders"></canvas>
+            </div>
+        </div>
+    </div>
+    <center>
+
+    </center>
+</div>
+<!--/Form without header-->
+
+    
+    <!-- /Start your project here-->
+    
+    <!-- Import Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+     var config = {
+        apiKey: "AIzaSyD5D23YKyps_69HcPj1Ir7SnaP5I2ondT0",
+        authDomain: "test-c1f82.firebaseapp.com",
+        databaseURL: "test-c1f82.firebaseio.com",
+        storageBucket: "gs://test-c1f82.appspot.com",
+        messagingSenderId: "1078102454253"
+      };
+      firebase.initializeApp(config);
+    </script>
+    
+    <!-- SCRIPTS -->
+    <script language="javascript" src="js/HKNavBar.js"></script>
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/tether.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- Login form handling JavaScript -->
+    <script type="text/javascript" src="js/generateCharts.js"></script>
+    
+</body>
+
+</html>
+
